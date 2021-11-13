@@ -1,5 +1,5 @@
 # sap-api-integrations-business-partner-reads 
-sap-api-integrations-business-partner-reads は、外部システム(特にエッジコンピューティング環境)をSAPと統合することを目的に、SAP API でBP(ビジネスパートナー)データを取得するマイクロサービスです。    
+sap-api-integrations-business-partner-reads は、外部システム(特にエッジコンピューティング環境)をSAPと統合することを目的に、SAP API でBP(ビジネスパートナ)データを取得するマイクロサービスです。    
 sap-api-integrations-business-partner-reads には、サンプルのAPI Json フォーマットが含まれています。   
 sap-api-integrations-business-partner-reads は、オンプレミス版である（＝クラウド版ではない）SAPS4HANA API の利用を前提としています。クラウド版APIを利用する場合は、ご注意ください。   
 https://api.sap.com/api/OP_API_BUSINESS_PARTNER_SRV/overview   
