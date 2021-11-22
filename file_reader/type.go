@@ -121,5 +121,5 @@ type SDC struct {
 	} `json:"business_partner"`
 	APISchema           string `json:"api_schema"`
 	BusinessPartner     string `json:"business_partner_code"`
-	Deleted             struct `json:"deleted"`
+	Deleted             string `json:"deleted"`
 }
