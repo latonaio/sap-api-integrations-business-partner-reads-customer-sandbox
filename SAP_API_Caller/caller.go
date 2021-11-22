@@ -91,13 +91,82 @@ func (c *SAPAPICaller) BusinessPartnerCompany(BusinessPartner, CompanyCode strin
 
 }
 
-func (c *SAPAPICaller) callBusinessPartnerSrvAPIRequirement(api, BusinessPartner, BusinessPartnerRole, VaridityEndDate, SalesOrganization, DistributionChannel, Division, CompanyCode string) ([]byte, error) {
+func (c *SAPAPICaller) callBusinessPartnerSrvAPIRequirementPartnerRole(api, BusinessPartner, BusinessPartnerRole, string) ([]byte, error) {
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
 	req, _ := http.NewRequest("GET", url, nil)
 
 	params := req.URL.Query()
-	// params.Add("$select", "BusinessPartner, BusinessPartnerRole, VaridityEndDate, SalesOrganization, DistributionChannel, Division, CompanyCode")
-	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s' and BusinessPartnerRole eq '%s' and VaridityEndDate eq '%s' and SalesOrganization eq '%s' and DistributionChannel eq '%s' and Division eq '%s' and CompanyCode eq '%s'", BusinessPartner, BusinessPartnerRole, VaridityEndDate, SalesOrganization, DistributionChannel, Division, CompanyCode))
+	// params.Add("$select", "BusinessPartner, BusinessPartnerRole")
+	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s' and BusinessPartnerRole eq '%s'", BusinessPartner, BusinessPartnerRole))
+	req.URL.RawQuery = params.Encode()
+
+	req.Header.Set("APIKey", c.apiKey)
+	req.Header.Set("Accept", "application/json")
+
+	client := new(http.Client)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	return byteArray, nil
+}
+
+func (c *SAPAPICaller) callBusinessPartnerSrvAPIRequirementAddress(api, BusinessPartner, VaridityEndDate string) ([]byte, error) {
+	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
+	req, _ := http.NewRequest("GET", url, nil)
+
+	params := req.URL.Query()
+	// params.Add("$select", "BusinessPartner, VaridityEndDate")
+	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s' and VaridityEndDate eq '%s'", BusinessPartner, VaridityEndDate))
+	req.URL.RawQuery = params.Encode()
+
+	req.Header.Set("APIKey", c.apiKey)
+	req.Header.Set("Accept", "application/json")
+
+	client := new(http.Client)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	return byteArray, nil
+}
+
+func (c *SAPAPICaller) callBusinessPartnerSrvAPIRequirementSalesArea(api, BusinessPartner, SalesOrganization, DistributionChannel, Division string) ([]byte, error) {
+	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
+	req, _ := http.NewRequest("GET", url, nil)
+
+	params := req.URL.Query()
+	// params.Add("$select", "BusinessPartner, SalesOrganization, DistributionChannel, Division")
+	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s' and SalesOrganization eq '%s' and DistributionChannel eq '%s' and Division eq '%s'", BusinessPartner, SalesOrganization, DistributionChannel, Division))
+	req.URL.RawQuery = params.Encode()
+
+	req.Header.Set("APIKey", c.apiKey)
+	req.Header.Set("Accept", "application/json")
+
+	client := new(http.Client)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	return byteArray, nil
+}
+
+func (c *SAPAPICaller) callBusinessPartnerSrvAPIRequirementCompany(api, BusinessPartner, CompanyCode string) ([]byte, error) {
+	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
+	req, _ := http.NewRequest("GET", url, nil)
+
+	params := req.URL.Query()
+	// params.Add("$select", "BusinessPartner, CompanyCode")
+	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s' and CompanyCode eq '%s'", BusinessPartner, CompanyCode))
 	req.URL.RawQuery = params.Encode()
 
 	req.Header.Set("APIKey", c.apiKey)
