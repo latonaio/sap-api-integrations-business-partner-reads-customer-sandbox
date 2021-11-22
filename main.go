@@ -15,7 +15,7 @@ func main() {
 		"https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/", l,
 	)
 
-	caller.AsyncGetBusinessPartner(
+	caller.AsyncGetBusinessPartnerCustomer(
 		inoutSDC.BusinessPartner.BusinessPartnerRole,
 		inoutSDC.BusinessPartner.VaridityEndDate,
 		inoutSDC.BusinessPartner.SalesOrganization.DistributionChannel.Division,

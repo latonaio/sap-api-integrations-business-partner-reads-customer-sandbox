@@ -24,7 +24,7 @@ func NewSAPAPICaller(baseUrl string, l *logger.Logger) *SAPAPICaller {
 	}
 }
 
-func (c *SAPAPICaller) AsyncGetBusinessPartner(BusinessPartner, BusinessPartnerRole, VaridityEndDate, SalesOrganization, DistributionChannel, Division, CompanyCode string) {
+func (c *SAPAPICaller) AsyncGetBusinessPartnerCustomer(BusinessPartner, BusinessPartnerRole, VaridityEndDate, SalesOrganization, DistributionChannel, Division, CompanyCode string) {
 	wg := &sync.WaitGroup{}
 
 	wg.Add(4)
