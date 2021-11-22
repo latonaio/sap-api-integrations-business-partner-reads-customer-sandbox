@@ -66,7 +66,7 @@ type BusinessPartnerSalesArea struct {
      DeletionIndicator              string   `json:"DeletionIndicator"`
 }
 
-type BusinessPartnerCompany struct {
+type BusinessPartnerCustomerCompany struct {
      BusinessPartner                string   `json:"BusinessPartner"`
      CustomerDesc                   string   `json:"Customer_desc"`
      CompanyCode                    string   `json:"CompanyCode"`
