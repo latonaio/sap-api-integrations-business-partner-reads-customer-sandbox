@@ -42,7 +42,7 @@ type EC_MC struct {
 		} `json:"work"`
 	} `json:"production_order"`
 	APISchema     string `json:"api_schema"`
-	Material      string `json:"material_code"`
+	MaterialCode  string `json:"material_code"`
 	Plant         string `json:"plant/supplier"`
 	Stock         float64 `json:"stock"`
 	DocumentType  string `json:"document_type"`
