@@ -57,7 +57,7 @@
 	"ReconciliationAccount": "113100",
 	"DeletionIndicator": "",
 	"cursor": "/Users/kyotatashiro/go/src/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L220",
-	"function":"sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).BusinessPartner",
+	"function":"sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).BusinessPartnerCustomer",
 	"level": "INFO",
 	"time": "2021-11-20T18:28:36.143833+09:00"
 }
