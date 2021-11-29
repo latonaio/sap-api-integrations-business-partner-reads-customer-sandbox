@@ -1,4 +1,4 @@
-package sap_api_caller
+package sap_api_output_formatter
 
 type BusinessPartnerReads struct {
 	 ConnectionKey   string `json:"connection_key"`
@@ -7,7 +7,7 @@ type BusinessPartnerReads struct {
 	 Filepath        string `json:"filepath"`
 	 APISchema       string `json:"api_schema"`
 	 BusinessPartner string `json:"business_partner_code"`
-	 Deleted         string `json:"deleted"`
+	 Deleted         bool   `json:"deleted"`
 }
 
 type BusinessPartnerRole struct {
@@ -41,7 +41,7 @@ type BusinessPartnerSalesArea struct {
      SalesOrganization              string   `json:"SalesOrganization"`
      DistributionChannel            string   `json:"DistributionChannel"`
      Division                       string   `json:"Division"`
-     CompleteDeliveryIsDefined      string   `json:"CompleteDeliveryIsDefined"`
+     CompleteDeliveryIsDefined      bool     `json:"CompleteDeliveryIsDefined"`
      Currency                       string   `json:"Currency"`
      CustomerAccountAssignmentGroup string   `json:"CustomerAccountAssignmentGroup"`
      CustomerPaymentTerms           string   `json:"CustomerPaymentTerms"`
@@ -50,8 +50,8 @@ type BusinessPartnerSalesArea struct {
      DeliveryPriority               string   `json:"DeliveryPriority"`
      IncotermsClassification        string   `json:"IncotermsClassification"`
      InvoiceDate                    string   `json:"InvoiceDate"`
-     OrderCombinationIsAllowed      string   `json:"OrderCombinationIsAllowed"`
-     PartialDeliveryIsAllowed       string   `json:"PartialDeliveryIsAllowed"`
+     OrderCombinationIsAllowed      bool     `json:"OrderCombinationIsAllowed"`
+     PartialDeliveryIsAllowed       bool     `json:"PartialDeliveryIsAllowed"`
      PriceListType                  string   `json:"PriceListType"`
      SalesGroup                     string   `json:"SalesGroup"`
      SalesOffice                    string   `json:"SalesOffice"`
@@ -63,7 +63,7 @@ type BusinessPartnerSalesArea struct {
      OrderIsBlockedForCustomer      string   `json:"OrderIsBlockedForCustomer"`
      DeliveryIsBlockedForCustomer   string   `json:"DeliveryIsBlockedForCustomer"`
      BillingIsBlockedForCustomer    string   `json:"BillingIsBlockedForCustomer"`
-     DeletionIndicator              string   `json:"DeletionIndicator"`
+     DeletionIndicator              bool     `json:"DeletionIndicator"`
 }
 
 type BusinessPartnerCustomerCompany struct {
@@ -71,10 +71,10 @@ type BusinessPartnerCustomerCompany struct {
      CustomerDesc                   string   `json:"Customer_desc"`
      CompanyCode                    string   `json:"CompanyCode"`
      APARToleranceGroup             string   `json:"APARToleranceGroup"`
-     CustomerSupplierClearingIsUsed string   `json:"CustomerSupplierClearingIsUsed"`
+     CustomerSupplierClearingIsUsed bool     `json:"CustomerSupplierClearingIsUsed"`
      HouseBank                      string   `json:"HouseBank"`
      PaymentMethodsList             string   `json:"PaymentMethodsList"`
      PaymentTerms                   string   `json:"PaymentTerms"`
      ReconciliationAccount          string   `json:"ReconciliationAccount"`
-     DeletionIndicator              string   `json:"DeletionIndicator"`
+     DeletionIndicator              bool     `json:"DeletionIndicator"`
 }
