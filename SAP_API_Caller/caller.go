@@ -24,31 +24,31 @@ func NewSAPAPICaller(baseUrl string, l *logger.Logger) *SAPAPICaller {
 	}
 }
 
-func (c *SAPAPICaller) AsyncGetBusinessPartnerCustomer(BusinessPartner, BusinessPartnerRole, VaridityEndDate, SalesOrganization, DistributionChannel, Division, CompanyCode string) {
+func (c *SAPAPICaller) AsyncGetBPCustomer(BusinessPartner, BusinessPartnerRole, VaridityEndDate, SalesOrganization, DistributionChannel, Division, CompanyCode string) {
 	wg := &sync.WaitGroup{}
 
 	wg.Add(4)
 	go func() {
-		c.BusinessPartnerRole(BusinessPartner, BusinessPartnerRole)
+		c.Role(BusinessPartner, BusinessPartnerRole)
 		wg.Done()
 	}()
 	go func() {
-		c.BusinessPartnerAddress(BusinessPartner, VaridityEndDate)
+		c.Address(BusinessPartner, VaridityEndDate)
 		wg.Done()
 	}()
 	go func() {
-		c.BusinessPartnerSalesArea(BusinessPartner, SalesOrganization, DistributionChannel, Division)
+		c.SalesArea(BusinessPartner, SalesOrganization, DistributionChannel, Division)
 		wg.Done()
 	}()
 	go func() {
-		c.BusinessPartnerCompany(BusinessPartner, CompanyCode)
+		c.Company(BusinessPartner, CompanyCode)
 		wg.Done()
 	}()
 	wg.Wait()
 }
 
-func (c *SAPAPICaller) BusinessPartnerRole(BusinessPartner, BusinessPartnerRole string) {
-	res, err := c.callBusinessPartnerSrvAPIRequirementPartnerRole("A_BusinessPartner('{BusinessPartner}')/to_BusinessPartnerRole", BusinessPartner, BusinessPartnerRole)
+func (c *SAPAPICaller) Role(BusinessPartner, BusinessPartnerRole string) {
+	res, err := c.callBusinessPartnerSrvAPIRequirementRole("A_BusinessPartner('{BusinessPartner}')/to_BusinessPartnerRole", BusinessPartner, BusinessPartnerRole)
 	if err != nil {
 		c.log.Error(err)
 		return
@@ -58,7 +58,7 @@ func (c *SAPAPICaller) BusinessPartnerRole(BusinessPartner, BusinessPartnerRole 
 
 }
 
-func (c *SAPAPICaller) BusinessPartnerAddress(BusinessPartner, VaridityEndDate string) {
+func (c *SAPAPICaller) Address(BusinessPartner, VaridityEndDate string) {
 	res, err := c.callBusinessPartnerSrvAPIRequirementAddress("A_BusinessPartner('{BusinessPartner}')/to_BusinessPartnerAddress", BusinessPartner, VaridityEndDate)
 	if err != nil {
 		c.log.Error(err)
@@ -69,7 +69,7 @@ func (c *SAPAPICaller) BusinessPartnerAddress(BusinessPartner, VaridityEndDate s
 
 }
 
-func (c *SAPAPICaller) BusinessPartnerSalesArea(BusinessPartner, SalesOrganization, DistributionChannel, Division string) {
+func (c *SAPAPICaller) SalesArea(BusinessPartner, SalesOrganization, DistributionChannel, Division string) {
 	res, err := c.callBusinessPartnerSrvAPIRequirementSalesArea("A_Customer('{Customer}')/to_CustomerSalesArea", BusinessPartner, SalesOrganization, DistributionChannel, Division)
 	if err != nil {
 		c.log.Error(err)
@@ -80,7 +80,7 @@ func (c *SAPAPICaller) BusinessPartnerSalesArea(BusinessPartner, SalesOrganizati
 
 }
 
-func (c *SAPAPICaller) BusinessPartnerCompany(BusinessPartner, CompanyCode string) {
+func (c *SAPAPICaller) Company(BusinessPartner, CompanyCode string) {
 	res, err := c.callBusinessPartnerSrvAPIRequirementCompany("A_Customer('{Customer}')/to_CustomerCompany", BusinessPartner, CompanyCode)
 	if err != nil {
 		c.log.Error(err)
@@ -91,7 +91,7 @@ func (c *SAPAPICaller) BusinessPartnerCompany(BusinessPartner, CompanyCode strin
 
 }
 
-func (c *SAPAPICaller) callBusinessPartnerSrvAPIRequirementPartnerRole(api, BusinessPartner, BusinessPartnerRole, string) ([]byte, error) {
+func (c *SAPAPICaller) callBusinessPartnerSrvAPIRequirementRole(api, BusinessPartner, BusinessPartnerRole, string) ([]byte, error) {
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
 	req, _ := http.NewRequest("GET", url, nil)
 

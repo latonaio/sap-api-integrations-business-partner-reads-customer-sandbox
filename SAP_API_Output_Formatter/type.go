@@ -1,6 +1,6 @@
 package sap_api_output_formatter
 
-type BusinessPartnerReads struct {
+type BusinessPartner struct {
 	 ConnectionKey   string `json:"connection_key"`
 	 Result          bool   `json:"result"`
 	 RedisKey        string `json:"redis_key"`
@@ -10,14 +10,14 @@ type BusinessPartnerReads struct {
 	 Deleted         bool   `json:"deleted"`
 }
 
-type BusinessPartnerRole struct {
+type Role struct {
      BusinessPartner     string `json:"BusinessPartner"`
      BusinessPartnerRole string `json:"BusinessPartnerRole"`
      ValidFrom           string `json:"ValidFrom"`
      ValidTo             string `json:"ValidTo"`
 }
 
-type BusinessPartnerAddressID struct {
+type Address struct {
      BusinessPartner     string `json:"BusinessPartner"`
      AddressID           string `json:"AddressID"`
      ValidityStartDate   string `json:"ValidityStartDate"`
@@ -35,7 +35,7 @@ type BusinessPartnerAddressID struct {
      ToURLAddress        string `json:"to_URLAddress"`
 }
 
-type BusinessPartnerSalesArea struct {
+type SalesArea struct {
      BusinessPartner                string   `json:"BusinessPartner"`
      CustomerDesc                   string   `json:"Customer_desc"`
      SalesOrganization              string   `json:"SalesOrganization"`
@@ -66,7 +66,7 @@ type BusinessPartnerSalesArea struct {
      DeletionIndicator              bool     `json:"DeletionIndicator"`
 }
 
-type BusinessPartnerCustomerCompany struct {
+type Company struct {
      BusinessPartner                string   `json:"BusinessPartner"`
      CustomerDesc                   string   `json:"Customer_desc"`
      CompanyCode                    string   `json:"CompanyCode"`

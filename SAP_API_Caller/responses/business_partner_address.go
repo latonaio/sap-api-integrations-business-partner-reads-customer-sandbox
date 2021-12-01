@@ -1,6 +1,6 @@
 package responses
 
-type BusinessPartnerAddress struct {
+type Address struct {
 	D struct {
 		Results []struct {
 			Metadata struct {
