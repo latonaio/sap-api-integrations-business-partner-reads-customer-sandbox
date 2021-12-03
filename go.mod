@@ -1,4 +1,4 @@
-module sap-api-integrations-batch-master-record-reads
+module sap-api-integrations-business-partner-reads-customer
 
 go 1.17
 
