@@ -62,7 +62,7 @@ type SDC struct {
 		BusinessPartnerRole string `json:"BusinessPartnerRole"`
 		ValidFrom           string `json:"ValidFrom"`
 		ValidTo             string `json:"ValidTo"`
-		AddressID           struct {
+		Address             struct {
 			AddressID           string `json:"AddressID"`
 			ValidityStartDate   string `json:"ValidityStartDate"`
 			ValidityEndDate     string `json:"ValidityEndDate"`
@@ -79,7 +79,6 @@ type SDC struct {
 			ToURLAddress        string `json:"to_URLAddress"`
 		} `json:"AddressID"`
 		SalesArea struct {
-			CustomerDesc                   string   `json:"Customer_desc"`
 			SalesOrganization              string   `json:"SalesOrganization"`
 			DistributionChannel            string   `json:"DistributionChannel"`
 			Division                       string   `json:"Division"`
@@ -93,7 +92,7 @@ type SDC struct {
 			IncotermsClassification        string   `json:"IncotermsClassification"`
 			InvoiceDate                    string   `json:"InvoiceDate"`
 			OrderCombinationIsAllowed      bool     `json:"OrderCombinationIsAllowed"`
-			PartialDeliveryIsAllowed       bool     `json:"PartialDeliveryIsAllowed"`
+			PartialDeliveryIsAllowed       string   `json:"PartialDeliveryIsAllowed"`
 			PriceListType                  string   `json:"PriceListType"`
 			SalesGroup                     string   `json:"SalesGroup"`
 			SalesOffice                    string   `json:"SalesOffice"`
@@ -108,7 +107,6 @@ type SDC struct {
 			DeletionIndicator              bool     `json:"DeletionIndicator"`
 		} `json:"Sales_Area"`
 		Company struct {
-			CustomerDesc                   string `json:"Customer_desc"`
 			CompanyCode                    string `json:"CompanyCode"`
 			APARToleranceGroup             string `json:"APARToleranceGroup"`
 			CustomerSupplierClearingIsUsed string `json:"CustomerSupplierClearingIsUsed"`
@@ -120,6 +118,6 @@ type SDC struct {
 		} `json:"Company"`
 	} `json:"business_partner"`
 	APISchema           string `json:"api_schema"`
-	BusinessPartner     string `json:"business_partner_code"`
+	Customer            string `json:"business_partner_code"`
 	Deleted             bool   `json:"deleted"`
 }

@@ -1,0 +1,15 @@
+{
+	"APARToleranceGroup": "",
+	"CompanyCode": "1110",
+	"Customer": "11100007",
+	"CustomerSupplierClearingIsUsed": false,
+	"DeletionIndicator": false,
+	"HouseBank": "",
+	"PaymentMethodsList": "",
+	"PaymentTerms": "0004",
+	"ReconciliationAccount": "12300000",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L148",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Company",
+	"level": "INFO",
+	"time": "2021-12-02T23:35:25.634253+09:00"
+}

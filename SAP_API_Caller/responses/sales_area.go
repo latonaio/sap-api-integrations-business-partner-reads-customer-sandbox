@@ -8,8 +8,7 @@ type SalesArea struct {
 				URI  string `json:"uri"`
 				Type string `json:"type"`
 			} `json:"__metadata"`
-			BusinessPartner                string `json:"BusinessPartner"`
-			CustomerDesc                   string `json:"Customer_desc"`
+			Customer                       string `json:"Customer"`
 			SalesOrganization              string `json:"SalesOrganization"`
 			DistributionChannel            string `json:"DistributionChannel"`
 			Division                       string `json:"Division"`
@@ -23,7 +22,7 @@ type SalesArea struct {
 			IncotermsClassification        string `json:"IncotermsClassification"`
 			InvoiceDate                    string `json:"InvoiceDate"`
 			OrderCombinationIsAllowed      bool   `json:"OrderCombinationIsAllowed"`
-			PartialDeliveryIsAllowed       bool   `json:"PartialDeliveryIsAllowed"`
+			PartialDeliveryIsAllowed       string `json:"PartialDeliveryIsAllowed"`
 			PriceListType                  string `json:"PriceListType"`
 			SalesGroup                     string `json:"SalesGroup"`
 			SalesOffice                    string `json:"SalesOffice"`

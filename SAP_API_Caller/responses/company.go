@@ -8,8 +8,7 @@ type Company struct {
 				URI  string `json:"uri"`
 				Type string `json:"type"`
 			} `json:"__metadata"`
-			BusinessPartner                string `json:"BusinessPartner"`
-			CustomerDesc                   string `json:"Customer_desc"`
+			Customer                       string `json:"Customer"`
 			CompanyCode                    string `json:"CompanyCode"`
 			APARToleranceGroup             string `json:"APARToleranceGroup"`
 			CustomerSupplierClearingIsUsed bool   `json:"CustomerSupplierClearingIsUsed"`
