@@ -53,7 +53,7 @@
 				"DeletionIndicator": false
 				},
 		"Company": {
-			"CompanyCode": "1110",
+			"CompanyCode": "33210",
 			"APARToleranceGroup": "",
 			"CustomerSupplierClearingIsUsed": "",
 			"HouseBank": "SM000",
@@ -64,6 +64,6 @@
 		}
   },
   "api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
-  "business_partner_code": "11100007",
+  "business_partner_code": "9980002060",
   "deleted": false
 }

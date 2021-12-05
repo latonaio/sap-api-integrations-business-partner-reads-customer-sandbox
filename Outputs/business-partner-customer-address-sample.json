@@ -1,0 +1,16 @@
+{
+	"AddressID": "33210",
+	"BusinessPartner": "9980002060",
+	"CityName": "Palo Alto",
+	"Country": "US",
+	"Language": "EN",
+	"PostalCode": "94304-1355",
+	"Region": "",
+	"StreetName": "",
+	"ValidityEndDate": "/Date(253402300799000+0000)/",
+	"ValidityStartDate": "/Date(1470355200000+0000)/",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L88",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Address",
+	"level": "INFO",
+	"time": "2021-12-03T17:03:36.580182+09:00"
+}

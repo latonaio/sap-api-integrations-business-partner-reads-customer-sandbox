@@ -24,10 +24,10 @@ func ConvertToRole(raw []byte, l *logger.Logger) (*Role, error) {
 	data := pm.D.Results[0]
 
 	return &Role{
-		BusinessPartner:               data.BusinessPartner,
-		BusinessPartnerRole:           data.BusinessPartnerRole,
-		ValidFrom:                     data.ValidFrom,
-		ValidTo:                       data.ValidTo,
+		BusinessPartner:     data.BusinessPartner,
+		BusinessPartnerRole: data.BusinessPartnerRole,
+		ValidFrom:           data.ValidFrom,
+		ValidTo:             data.ValidTo,
 	}, nil
 }
 
@@ -47,21 +47,16 @@ func ConvertToAddress(raw []byte, l *logger.Logger) (*Address, error) {
 	data := pm.D.Results[0]
 
 	return &Address{
-		BusinessPartner:               data.BusinessPartner,
-		AddressID:                     data.AddressID,
-		ValidityStartDate:             data.ValidityStartDate,
-		ValidityEndDate:               data.ValidityEndDate,
-		Country:                       data.Country,
-		Region:                        data.Region,
-		StreetName:                    data.StreetName,
-		CityName:                      data.CityName,
-		PostalCode:                    data.PostalCode,
-		Language:                      data.Language,
-		ToEmailAddress:                data.ToEmailAddress,
-		ToFaxNumber:                   data.ToFaxNumber,
-		ToMobilePhoneNumber:           data.ToMobilePhoneNumber,
-		ToPhoneNumber:                 data.ToPhoneNumber,
-		ToURLAddress:                  data.ToURLAddress,
+		BusinessPartner:   data.BusinessPartner,
+		AddressID:         data.AddressID,
+		ValidityStartDate: data.ValidityStartDate,
+		ValidityEndDate:   data.ValidityEndDate,
+		Country:           data.Country,
+		Region:            data.Region,
+		StreetName:        data.StreetName,
+		CityName:          data.CityName,
+		PostalCode:        data.PostalCode,
+		Language:          data.Language,
 	}, nil
 }
 
@@ -81,33 +76,33 @@ func ConvertToSalesArea(raw []byte, l *logger.Logger) (*SalesArea, error) {
 	data := pm.D.Results[0]
 
 	return &SalesArea{
-		Customer:                      data.Customer,
-		SalesOrganization:             data.SalesOrganization,
-		DistributionChannel:           data.DistributionChannel,
-		Division:                      data.Division,
-		CompleteDeliveryIsDefined:     data.CompleteDeliveryIsDefined,
-		Currency:                      data.Currency,
+		Customer:                       data.Customer,
+		SalesOrganization:              data.SalesOrganization,
+		DistributionChannel:            data.DistributionChannel,
+		Division:                       data.Division,
+		CompleteDeliveryIsDefined:      data.CompleteDeliveryIsDefined,
+		Currency:                       data.Currency,
 		CustomerAccountAssignmentGroup: data.CustomerAccountAssignmentGroup,
-		CustomerPaymentTerms:          data.CustomerPaymentTerms,
-		CustomerPriceGroup:            data.CustomerPriceGroup,
-		CustomerPricingProcedure:      data.CustomerPricingProcedure,
-		DeliveryPriority:              data.DeliveryPriority,
-		IncotermsClassification:       data.IncotermsClassification,
-		InvoiceDate:                   data.InvoiceDate,
-		OrderCombinationIsAllowed:     data.OrderCombinationIsAllowed,
-		PartialDeliveryIsAllowed:      data.PartialDeliveryIsAllowed,
-		PriceListType:                 data.PriceListType,
-		SalesGroup:                    data.SalesGroup,
-		SalesOffice:                   data.SalesOffice,
-		ShippingCondition:             data.ShippingCondition,
-		SupplyingPlant:                data.SupplyingPlant,
-		SalesDistrict:                 data.SalesDistrict,
-		InvoiceListSchedule:           data.InvoiceListSchedule,
-		ExchangeRateType:              data.ExchangeRateType,
-		OrderIsBlockedForCustomer:     data.OrderIsBlockedForCustomer,
-		DeliveryIsBlockedForCustomer:  data.DeliveryIsBlockedForCustomer,
-		BillingIsBlockedForCustomer:   data.BillingIsBlockedForCustomer,
-		DeletionIndicator:             data.DeletionIndicator,
+		CustomerPaymentTerms:           data.CustomerPaymentTerms,
+		CustomerPriceGroup:             data.CustomerPriceGroup,
+		CustomerPricingProcedure:       data.CustomerPricingProcedure,
+		DeliveryPriority:               data.DeliveryPriority,
+		IncotermsClassification:        data.IncotermsClassification,
+		InvoiceDate:                    data.InvoiceDate,
+		OrderCombinationIsAllowed:      data.OrderCombinationIsAllowed,
+		PartialDeliveryIsAllowed:       data.PartialDeliveryIsAllowed,
+		PriceListType:                  data.PriceListType,
+		SalesGroup:                     data.SalesGroup,
+		SalesOffice:                    data.SalesOffice,
+		ShippingCondition:              data.ShippingCondition,
+		SupplyingPlant:                 data.SupplyingPlant,
+		SalesDistrict:                  data.SalesDistrict,
+		InvoiceListSchedule:            data.InvoiceListSchedule,
+		ExchangeRateType:               data.ExchangeRateType,
+		OrderIsBlockedForCustomer:      data.OrderIsBlockedForCustomer,
+		DeliveryIsBlockedForCustomer:   data.DeliveryIsBlockedForCustomer,
+		BillingIsBlockedForCustomer:    data.BillingIsBlockedForCustomer,
+		DeletionIndicator:              data.DeletionIndicator,
 	}, nil
 }
 
@@ -127,14 +122,14 @@ func ConvertToCompany(raw []byte, l *logger.Logger) (*Company, error) {
 	data := pm.D.Results[0]
 
 	return &Company{
-		Customer:                      data.Customer,
-		CompanyCode:                   data.CompanyCode,
-		APARToleranceGroup:            data.APARToleranceGroup,
+		Customer:                       data.Customer,
+		CompanyCode:                    data.CompanyCode,
+		APARToleranceGroup:             data.APARToleranceGroup,
 		CustomerSupplierClearingIsUsed: data.CustomerSupplierClearingIsUsed,
-		HouseBank:                     data.HouseBank,
-		PaymentMethodsList:            data.PaymentMethodsList,
-		PaymentTerms:                  data.PaymentTerms,
-		ReconciliationAccount:         data.ReconciliationAccount,
-		DeletionIndicator:             data.DeletionIndicator,
+		HouseBank:                      data.HouseBank,
+		PaymentMethodsList:             data.PaymentMethodsList,
+		PaymentTerms:                   data.PaymentTerms,
+		ReconciliationAccount:          data.ReconciliationAccount,
+		DeletionIndicator:              data.DeletionIndicator,
 	}, nil
 }
