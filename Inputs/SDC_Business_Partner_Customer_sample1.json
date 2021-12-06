@@ -17,12 +17,7 @@
                 "StreetName": "東京都渋谷区",
                 "CityName": "神宮前6-12-18 WeWork Iceberg 3F",
                 "PostalCode": "150-0001",
-                "Language": "JA",
-                "to_EmailAddress": "info@latona.io",
-                "to_FaxNumber": "",
-                "to_MobilePhoneNumber": "",
-                "to_PhoneNumber": "050-3708-0406",
-		        "to_URLAddress": "https://www.latona.io/"
+                "Language": "JA"
 		     },
 		"Sales_Area": {
                 "SalesOrganization": "1110",
