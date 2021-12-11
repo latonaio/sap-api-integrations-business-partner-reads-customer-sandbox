@@ -112,7 +112,8 @@ type SDC struct {
 			DeletionIndicator              bool   `json:"DeletionIndicator"`
 		} `json:"Company"`
 	} `json:"business_partner"`
-	APISchema string `json:"api_schema"`
-	Customer  string `json:"business_partner_code"`
-	Deleted   bool   `json:"deleted"`
+	APISchema string   `json:"api_schema"`
+	Accepter  []string `json:"accepter"`
+	Customer  string   `json:"business_partner_code"`
+	Deleted   bool     `json:"deleted"`
 }

@@ -10,10 +10,17 @@ import (
 func main() {
 	l := logger.NewLogger()
 	fr := sap_api_input_reader.NewFileReader()
-	inoutSDC := fr.ReadSDC("./Inputs//SDC_Business_Partner_Customer_sample1.json")
+	inoutSDC := fr.ReadSDC("./Inputs//SDC_Business_Partner_Customer_Sales_Area_sample.json")
 	caller := sap_api_caller.NewSAPAPICaller(
 		"https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/", l,
 	)
+
+	accepter := inoutSDC.Accepter
+	if len(accepter) == 0 || accepter[0] == "All" {
+		accepter = []string{
+			"Role", "Address", "SalesArea", "Company",
+		}
+	}
 
 	caller.AsyncGetBPCustomer(
 		inoutSDC.BusinessPartner.BusinessPartner,
@@ -24,5 +31,6 @@ func main() {
 		inoutSDC.BusinessPartner.SalesArea.Division,
 		inoutSDC.Customer,
 		inoutSDC.BusinessPartner.Company.CompanyCode,
+		accepter,
 	)
 }
