@@ -110,3 +110,22 @@ func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, 
 	wg.Wait()
 }
 ```
+
+## Output  
+本マイクロサービスでは、[golang-logging-library](https://github.com/latonaio/golang-logging-library) により、以下のようなデータがJSON形式で出力されます。  
+以下の sample.json の例は、ビジネスパートナ の ロール が取得された結果の JSON の例です。  
+以下の項目のうち、"BaseUnit" ～ "WeightUnit" は、/SAP_API_Output_Formatter/type.go 内 の Type Product {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
+
+```
+{
+	"BusinessPartner": "9980002060",
+	"BusinessPartnerRole": "BUP003",
+	"ValidFrom": "/Date(1470355200000+0000)/",
+	"ValidTo": "/Date(253402300799000+0000)/",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L58",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Role",
+	"level": "INFO",
+	"time": "2021-12-02T22:37:27.21744+09:00"
+}
+
+```
