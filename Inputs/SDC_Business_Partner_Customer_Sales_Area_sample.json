@@ -59,7 +59,7 @@
 		}
   },
   "api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
-  "accepter": ["All"],
+  "accepter": ["SalesArea"],
   "business_partner_code": "202",
   "deleted": false
 }

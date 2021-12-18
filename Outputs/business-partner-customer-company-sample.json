@@ -1,15 +1,17 @@
 {
-	"APARToleranceGroup": "",
-	"CompanyCode": "1110",
-	"Customer": "11100007",
-	"CustomerSupplierClearingIsUsed": false,
-	"DeletionIndicator": false,
-	"HouseBank": "",
-	"PaymentMethodsList": "",
-	"PaymentTerms": "0004",
-	"ReconciliationAccount": "12300000",
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L148",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L158",
 	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Company",
 	"level": "INFO",
-	"time": "2021-12-02T23:35:25.634253+09:00"
+	"message": {
+		"Customer": "202",
+		"CompanyCode": "1710",
+		"APARToleranceGroup": "",
+		"CustomerSupplierClearingIsUsed": false,
+		"HouseBank": "",
+		"PaymentMethodsList": "",
+		"PaymentTerms": "0001",
+		"ReconciliationAccount": "12100000",
+		"DeletionIndicator": false
+	},
+	"time": "2021-12-18T22:01:15.287865+09:00"
 }
