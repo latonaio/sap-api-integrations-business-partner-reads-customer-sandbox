@@ -1,0 +1,19 @@
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L371",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Customer",
+	"level": "INFO",
+	"message": [
+		{
+			"Customer": "1000140",
+			"CompanyCode": "1710",
+			"APARToleranceGroup": "",
+			"CustomerSupplierClearingIsUsed": false,
+			"HouseBank": "",
+			"PaymentMethodsList": "T",
+			"PaymentTerms": "0002",
+			"ReconciliationAccount": "12100000",
+			"DeletionIndicator": false
+		}
+	],
+	"time": "2021-12-20T20:54:28.201859+09:00"
+}

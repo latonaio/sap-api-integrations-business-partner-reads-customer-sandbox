@@ -58,11 +58,59 @@ type SDC struct {
 	RedisKey        string `json:"redis_key"`
 	Filepath        string `json:"filepath"`
 	BusinessPartner struct {
-		BusinessPartner     string `json:"BusinessPartner"`
-		BusinessPartnerRole string `json:"BusinessPartnerRole"`
-		ValidFrom           string `json:"ValidFrom"`
-		ValidTo             string `json:"ValidTo"`
-		Address             struct {
+		BusinessPartner               string      `json:"BusinessPartner"`
+		Customer                      string      `json:"Customer"`
+		Supplier                      string      `json:"Supplier"`
+		AcademicTitle                 string      `json:"AcademicTitle"`
+		AuthorizationGroup            string      `json:"AuthorizationGroup"`
+		BusinessPartnerCategory       string      `json:"BusinessPartnerCategory"`
+		BusinessPartnerFullName       string      `json:"BusinessPartnerFullName"`
+		BusinessPartnerGrouping       string      `json:"BusinessPartnerGrouping"`
+		BusinessPartnerName           string      `json:"BusinessPartnerName"`
+		CorrespondenceLanguage        string      `json:"CorrespondenceLanguage"`
+		CreationDate                  string      `json:"CreationDate"`
+		CreationTime                  string      `json:"CreationTime"`
+		FirstName                     string      `json:"FirstName"`
+		Industry                      string      `json:"Industry"`
+		IsFemale                      interface{} `json:"IsFemale"`
+		IsMale                        interface{} `json:"IsMale"`
+		IsNaturalPerson               string      `json:"IsNaturalPerson"`
+		IsSexUnknown                  interface{} `json:"IsSexUnknown"`
+		GenderCodeName                string      `json:"GenderCodeName"`
+		Language                      string      `json:"Language"`
+		LastChangeDate                string      `json:"LastChangeDate"`
+		LastChangeTime                string      `json:"LastChangeTime"`
+		LastName                      string      `json:"LastName"`
+		OrganizationBPName1           string      `json:"OrganizationBPName1"`
+		OrganizationBPName2           string      `json:"OrganizationBPName2"`
+		OrganizationBPName3           string      `json:"OrganizationBPName3"`
+		OrganizationBPName4           string      `json:"OrganizationBPName4"`
+		OrganizationFoundationDate    string      `json:"OrganizationFoundationDate"`
+		OrganizationLiquidationDate   string      `json:"OrganizationLiquidationDate"`
+		SearchTerm1                   string      `json:"SearchTerm1"`
+		SearchTerm2                   string      `json:"SearchTerm2"`
+		AdditionalLastName            string      `json:"AdditionalLastName"`
+		BirthDate                     string      `json:"BirthDate"`
+		BusinessPartnerBirthplaceName string      `json:"BusinessPartnerBirthplaceName"`
+		BusinessPartnerDeathDate      string      `json:"BusinessPartnerDeathDate"`
+		BusinessPartnerIsBlocked      interface{} `json:"BusinessPartnerIsBlocked"`
+		BusinessPartnerType           string      `json:"BusinessPartnerType"`
+		GroupBusinessPartnerName1     string      `json:"GroupBusinessPartnerName1"`
+		GroupBusinessPartnerName2     string      `json:"GroupBusinessPartnerName2"`
+		IndependentAddressID          string      `json:"IndependentAddressID"`
+		MiddleName                    string      `json:"MiddleName"`
+		NameCountry                   string      `json:"NameCountry"`
+		PersonFullName                string      `json:"PersonFullName"`
+		PersonNumber                  string      `json:"PersonNumber"`
+		IsMarkedForArchiving          interface{} `json:"IsMarkedForArchiving"`
+		BusinessPartnerIDByExtSystem  string      `json:"BusinessPartnerIDByExtSystem"`
+		TradingPartner                string      `json:"TradingPartner"`
+		Role                          struct {
+			BusinessPartnerRole string `json:"BusinessPartnerRole"`
+			ValidFrom           string `json:"ValidFrom"`
+			ValidTo             string `json:"ValidTo"`
+		} `json:"Role"`
+		Address struct {
 			AddressID         string `json:"AddressID"`
 			ValidityStartDate string `json:"ValidityStartDate"`
 			ValidityEndDate   string `json:"ValidityEndDate"`
@@ -72,35 +120,74 @@ type SDC struct {
 			CityName          string `json:"CityName"`
 			PostalCode        string `json:"PostalCode"`
 			Language          string `json:"Language"`
-		} `json:"AddressID"`
-		SalesArea struct {
-			SalesOrganization              string `json:"SalesOrganization"`
-			DistributionChannel            string `json:"DistributionChannel"`
-			Division                       string `json:"Division"`
-			CompleteDeliveryIsDefined      bool   `json:"CompleteDeliveryIsDefined"`
-			Currency                       string `json:"Currency"`
-			CustomerAccountAssignmentGroup string `json:"CustomerAccountAssignmentGroup"`
-			CustomerPaymentTerms           string `json:"CustomerPaymentTerms"`
-			CustomerPriceGroup             string `json:"CustomerPriceGroup"`
-			CustomerPricingProcedure       string `json:"CustomerPricingProcedure"`
-			DeliveryPriority               string `json:"DeliveryPriority"`
-			IncotermsClassification        string `json:"IncotermsClassification"`
-			InvoiceDate                    string `json:"InvoiceDate"`
-			OrderCombinationIsAllowed      bool   `json:"OrderCombinationIsAllowed"`
-			PartialDeliveryIsAllowed       string `json:"PartialDeliveryIsAllowed"`
-			PriceListType                  string `json:"PriceListType"`
-			SalesGroup                     string `json:"SalesGroup"`
-			SalesOffice                    string `json:"SalesOffice"`
-			ShippingCondition              string `json:"ShippingCondition"`
-			SupplyingPlant                 string `json:"SupplyingPlant"`
-			SalesDistrict                  string `json:"SalesDistrict"`
-			InvoiceListSchedule            string `json:"InvoiceListSchedule"`
-			ExchangeRateType               string `json:"ExchangeRateType"`
-			OrderIsBlockedForCustomer      string `json:"OrderIsBlockedForCustomer"`
-			DeliveryIsBlockedForCustomer   string `json:"DeliveryIsBlockedForCustomer"`
-			BillingIsBlockedForCustomer    string `json:"BillingIsBlockedForCustomer"`
-			DeletionIndicator              bool   `json:"DeletionIndicator"`
-		} `json:"Sales_Area"`
+		} `json:"Address"`
+		Bank struct {
+			BankIdentification       string      `json:"BankIdentification"`
+			BankCountryKey           string      `json:"BankCountryKey"`
+			BankName                 string      `json:"BankName"`
+			BankNumber               string      `json:"BankNumber"`
+			SWIFTCode                string      `json:"SWIFTCode"`
+			BankControlKey           string      `json:"BankControlKey"`
+			BankAccountHolderName    string      `json:"BankAccountHolderName"`
+			BankAccountName          string      `json:"BankAccountName"`
+			ValidityStartDate        string      `json:"ValidityStartDate"`
+			ValidityEndDate          string      `json:"ValidityEndDate"`
+			Iban                     string      `json:"IBAN"`
+			IBANValidityStartDate    string      `json:"IBANValidityStartDate"`
+			BankAccount              string      `json:"BankAccount"`
+			BankAccountReferenceText string      `json:"BankAccountReferenceText"`
+			CollectionAuthInd        interface{} `json:"CollectionAuthInd"`
+			CityName                 string      `json:"CityName"`
+			AuthorizationGroup       string      `json:"AuthorizationGroup"`
+		} `json:"Bank"`
+		CustomerData struct {
+			Customer                    string      `json:"Customer"`
+			AuthorizationGroup          string      `json:"AuthorizationGroup"`
+			BillingIsBlockedForCustomer string      `json:"BillingIsBlockedForCustomer"`
+			CreationDate                string      `json:"CreationDate"`
+			CustomerAccountGroup        string      `json:"CustomerAccountGroup"`
+			CustomerClassification      string      `json:"CustomerClassification"`
+			CustomerFullName            string      `json:"CustomerFullName"`
+			CustomerName                string      `json:"CustomerName"`
+			DeliveryIsBlocked           string      `json:"DeliveryIsBlocked"`
+			OrderIsBlockedForCustomer   string      `json:"OrderIsBlockedForCustomer"`
+			PostingIsBlocked            interface{} `json:"PostingIsBlocked"`
+			Supplier                    string      `json:"Supplier"`
+			CustomerCorporateGroup      string      `json:"CustomerCorporateGroup"`
+			Industry                    string      `json:"Industry"`
+			TaxNumber1                  string      `json:"TaxNumber1"`
+			DeletionIndicator           interface{} `json:"DeletionIndicator"`
+			CityCode                    string      `json:"CityCode"`
+			County                      string      `json:"County"`
+			SalesArea                   struct {
+				SalesOrganization              string `json:"SalesOrganization"`
+				DistributionChannel            string `json:"DistributionChannel"`
+				Division                       string `json:"Division"`
+				CompleteDeliveryIsDefined      bool   `json:"CompleteDeliveryIsDefined"`
+				Currency                       string `json:"Currency"`
+				CustomerAccountAssignmentGroup string `json:"CustomerAccountAssignmentGroup"`
+				CustomerPaymentTerms           string `json:"CustomerPaymentTerms"`
+				CustomerPriceGroup             string `json:"CustomerPriceGroup"`
+				CustomerPricingProcedure       string `json:"CustomerPricingProcedure"`
+				DeliveryPriority               string `json:"DeliveryPriority"`
+				IncotermsClassification        string `json:"IncotermsClassification"`
+				InvoiceDate                    string `json:"InvoiceDate"`
+				OrderCombinationIsAllowed      bool   `json:"OrderCombinationIsAllowed"`
+				PartialDeliveryIsAllowed       string `json:"PartialDeliveryIsAllowed"`
+				PriceListType                  string `json:"PriceListType"`
+				SalesGroup                     string `json:"SalesGroup"`
+				SalesOffice                    string `json:"SalesOffice"`
+				ShippingCondition              string `json:"ShippingCondition"`
+				SupplyingPlant                 string `json:"SupplyingPlant"`
+				SalesDistrict                  string `json:"SalesDistrict"`
+				InvoiceListSchedule            string `json:"InvoiceListSchedule"`
+				ExchangeRateType               string `json:"ExchangeRateType"`
+				OrderIsBlockedForCustomer      string `json:"OrderIsBlockedForCustomer"`
+				DeliveryIsBlockedForCustomer   string `json:"DeliveryIsBlockedForCustomer"`
+				BillingIsBlockedForCustomer    string `json:"BillingIsBlockedForCustomer"`
+				DeletionIndicator              bool   `json:"DeletionIndicator"`
+			} `json:"Sales_Area"`
+		} `json:"CustomerData"`
 		Company struct {
 			CompanyCode                    string `json:"CompanyCode"`
 			APARToleranceGroup             string `json:"APARToleranceGroup"`
@@ -112,8 +199,8 @@ type SDC struct {
 			DeletionIndicator              bool   `json:"DeletionIndicator"`
 		} `json:"Company"`
 	} `json:"business_partner"`
-	APISchema string   `json:"api_schema"`
-	Accepter  []string `json:"accepter"`
-	Customer  string   `json:"business_partner_code"`
-	Deleted   bool     `json:"deleted"`
+	APISchema           string   `json:"api_schema"`
+	Accepter            []string `json:"accepter"`
+	BusinessPartnerCode string   `json:"business_partner_code"`
+	Deleted             bool     `json:"deleted"`
 }

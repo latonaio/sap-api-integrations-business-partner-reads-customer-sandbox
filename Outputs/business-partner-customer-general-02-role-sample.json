@@ -1,0 +1,20 @@
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L90",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).General",
+	"level": "INFO",
+	"message": [
+		{
+			"BusinessPartner": "1000140",
+			"BusinessPartnerRole": "FLCU01",
+			"ValidFrom": "/Date(1527206400000+0000)/",
+			"ValidTo": "/Date(253402300799000+0000)/"
+		},
+		{
+			"BusinessPartner": "1000140",
+			"BusinessPartnerRole": "FLCU00",
+			"ValidFrom": "/Date(1527206400000+0000)/",
+			"ValidTo": "/Date(253402300799000+0000)/"
+		}
+	],
+	"time": "2021-12-20T20:01:29.141707+09:00"
+}

@@ -1,0 +1,38 @@
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L118",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).General",
+	"level": "INFO",
+	"message": [
+		{
+			"Customer": "1000140",
+			"SalesOrganization": "1710",
+			"DistributionChannel": "10",
+			"Division": "00",
+			"CompleteDeliveryIsDefined": false,
+			"Currency": "USD",
+			"CustomerAccountAssignmentGroup": "01",
+			"CustomerPaymentTerms": "0002",
+			"CustomerPriceGroup": "C1",
+			"CustomerPricingProcedure": "01",
+			"DeliveryPriority": "0",
+			"IncotermsClassification": "CFR",
+			"InvoiceDate": "",
+			"OrderCombinationIsAllowed": true,
+			"PartialDeliveryIsAllowed": "",
+			"PriceListType": "",
+			"SalesGroup": "",
+			"SalesOffice": "",
+			"ShippingCondition": "01",
+			"SupplyingPlant": "1710",
+			"SalesDistrict": "US0004",
+			"InvoiceListSchedule": "",
+			"ExchangeRateType": "",
+			"OrderIsBlockedForCustomer": "",
+			"DeliveryIsBlockedForCustomer": "",
+			"BillingIsBlockedForCustomer": "",
+			"DeletionIndicator": false,
+			"to_PartnerFunction": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_CustomerSalesArea(Customer='1000140',SalesOrganization='1710',DistributionChannel='10',Division='00')/to_PartnerFunction"
+		}
+	],
+	"time": "2021-12-20T20:01:30.652879+09:00"
+}

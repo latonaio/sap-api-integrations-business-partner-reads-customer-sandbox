@@ -10,7 +10,7 @@ import (
 func main() {
 	l := logger.NewLogger()
 	fr := sap_api_input_reader.NewFileReader()
-	inoutSDC := fr.ReadSDC("./Inputs//SDC_Business_Partner_Customer_Sales_Area_sample.json")
+	inoutSDC := fr.ReadSDC("./Inputs//SDC_Business_Partner_Customer_Bank_sample.json")
 	caller := sap_api_caller.NewSAPAPICaller(
 		"https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/", l,
 	)
@@ -18,18 +18,20 @@ func main() {
 	accepter := inoutSDC.Accepter
 	if len(accepter) == 0 || accepter[0] == "All" {
 		accepter = []string{
-			"Role", "Address", "SalesArea", "Company",
+			"General", "Role", "Address", "Bank", "Customer", "SalesArea", "Company",
 		}
 	}
 
 	caller.AsyncGetBPCustomer(
 		inoutSDC.BusinessPartner.BusinessPartner,
-		inoutSDC.BusinessPartner.BusinessPartnerRole,
+		inoutSDC.BusinessPartner.Role.BusinessPartnerRole,
 		inoutSDC.BusinessPartner.Address.AddressID,
-		inoutSDC.BusinessPartner.SalesArea.SalesOrganization,
-		inoutSDC.BusinessPartner.SalesArea.DistributionChannel,
-		inoutSDC.BusinessPartner.SalesArea.Division,
-		inoutSDC.Customer,
+		inoutSDC.BusinessPartner.Bank.BankCountryKey,
+		inoutSDC.BusinessPartner.Bank.BankNumber,
+		inoutSDC.BusinessPartner.CustomerData.Customer,
+		inoutSDC.BusinessPartner.CustomerData.SalesArea.SalesOrganization,
+		inoutSDC.BusinessPartner.CustomerData.SalesArea.DistributionChannel,
+		inoutSDC.BusinessPartner.CustomerData.SalesArea.Division,
 		inoutSDC.BusinessPartner.Company.CompanyCode,
 		accepter,
 	)

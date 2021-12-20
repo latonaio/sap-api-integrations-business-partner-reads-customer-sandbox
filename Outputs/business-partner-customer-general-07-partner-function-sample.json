@@ -1,0 +1,60 @@
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L125",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).General",
+	"level": "INFO",
+	"message": [
+		{
+			"Customer": "1000140",
+			"SalesOrganization": "1710",
+			"DistributionChannel": "10",
+			"Division": "00",
+			"PartnerCounter": "0",
+			"PartnerFunction": "SP",
+			"BPCustomerNumber": "1000140",
+			"CustomerPartnerDescription": "",
+			"DefaultPartner": false,
+			"Supplier": "",
+			"AuthorizationGroup": ""
+		},
+		{
+			"Customer": "1000140",
+			"SalesOrganization": "1710",
+			"DistributionChannel": "10",
+			"Division": "00",
+			"PartnerCounter": "0",
+			"PartnerFunction": "BP",
+			"BPCustomerNumber": "1000140",
+			"CustomerPartnerDescription": "",
+			"DefaultPartner": false,
+			"Supplier": "",
+			"AuthorizationGroup": ""
+		},
+		{
+			"Customer": "1000140",
+			"SalesOrganization": "1710",
+			"DistributionChannel": "10",
+			"Division": "00",
+			"PartnerCounter": "0",
+			"PartnerFunction": "PY",
+			"BPCustomerNumber": "1000140",
+			"CustomerPartnerDescription": "",
+			"DefaultPartner": false,
+			"Supplier": "",
+			"AuthorizationGroup": ""
+		},
+		{
+			"Customer": "1000140",
+			"SalesOrganization": "1710",
+			"DistributionChannel": "10",
+			"Division": "00",
+			"PartnerCounter": "0",
+			"PartnerFunction": "SH",
+			"BPCustomerNumber": "1000140",
+			"CustomerPartnerDescription": "",
+			"DefaultPartner": false,
+			"Supplier": "",
+			"AuthorizationGroup": ""
+		}
+	],
+	"time": "2021-12-20T20:01:31.017406+09:00"
+}

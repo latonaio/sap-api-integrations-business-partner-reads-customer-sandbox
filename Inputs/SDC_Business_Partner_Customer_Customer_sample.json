@@ -5,7 +5,7 @@
 	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
 	"business_partner": {
 		"BusinessPartner": "1000140",
-		"Customer": "",
+		"Customer": "1000140",
 		"Supplier": "",
 		"AcademicTitle": "",
 		"AuthorizationGroup": "",
@@ -52,7 +52,7 @@
 		"BusinessPartnerIDByExtSystem": "",
 		"TradingPartner": "",
 		"Role": {
-			"BusinessPartnerRole": "FLCU01",
+			"BusinessPartnerRole": "",
 			"ValidFrom": "",
 			"ValidTo": ""
 		},
@@ -87,7 +87,7 @@
 			"AuthorizationGroup": ""
 		},
 		"CustomerData": {
-			"Customer": "",
+			"Customer": "1000140",
 			"AuthorizationGroup": "",
 			"BillingIsBlockedForCustomer": "",
 			"CreationDate": "",
@@ -146,7 +146,7 @@
 		}
 	},
 	"api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
-	"accepter": ["Role"],
+	"accepter": ["Customer"],
 	"business_partner_code": "1000140",
 	"deleted": false
 }

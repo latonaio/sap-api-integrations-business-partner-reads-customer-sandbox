@@ -24,10 +24,24 @@ sap-api-integrations-business-partner-reads-customer が対応する APIサー�
 ## 本レポジトリ に 含まれる API名
 sap-api-integrations-business-partner-reads-customer には、次の API をコールするためのリソースが含まれています。  
 
+* A_BusinessPartner（ビジネスパートナ - 一般）※ビジネスパートナ一般データの詳細データを取得するために、ToRole、ToAddress、ToBank、ToCustomer、ToSalesArea、ToPartnerFunction、ToCompany、と合わせて利用されます。
+* ToRole（ビジネスパートナ - ロール）
+* ToAddress（ビジネスパートナ - アドレス）
+* ToBank（ビジネスパートナ - 銀行）
+* ToCustomer（ビジネスパートナ - 得意先）
+* ToSalesArea（ビジネスパートナ - 得意先販売エリア）
+* ToPartnerFunction（ビジネスパートナ - 取引先機能）
+* ToCompany（ビジネスパートナ - 会社）
 * A_BusinessPartnerRole（ビジネスパートナ - ロール）
 * A_BusinessPartnerAddress（ビジネスパートナ - アドレス）
-* A_CustomerSalesArea（ビジネスパートナ - 得意先販売エリア）
-* A_CustomerCompany（ビジネスパートナ - 得意先会社コード）
+* A_BusinessPartnerBank（ビジネスパートナ - 銀行）
+* A_Customer（ビジネスパートナ - 得意先）※ビジネスパートナ一般データの詳細データを取得するために、ToSalesArea、ToPartnerFunction、ToCompany、と合わせて利用されます。
+* ToSalesArea（ビジネスパートナ - 得意先販売エリア）
+* ToPartnerFunction（ビジネスパートナ - 取引先機能）
+* ToCompany（ビジネスパートナ - 会社）
+* A_CustomerSalesArea（ビジネスパートナ - 得意先販売エリア）※ビジネスパートナ一般データの詳細データを取得するために、ToPartnerFunction、と合わせて利用されます。
+* ToPartnerFunction（ビジネスパートナ - 取引先機能）
+
 
 ## API への 値入力条件 の 初期値
 sap-api-integrations-business-partner-reads-customer において、API への値入力条件の初期値は、入力ファイルレイアウトの種別毎に、次の通りとなっています。  
@@ -35,12 +49,14 @@ sap-api-integrations-business-partner-reads-customer において、API への�
 ### SDC レイアウト
 
 * inoutSDC.BusinessPartner.BusinessPartner（ビジネスパートナ）
-* inoutSDC.BusinessPartner.BusinessPartnerRole（ビジネスパートナロール）
+* inoutSDC.BusinessPartner.Role.BusinessPartnerRole（ビジネスパートナロール）
 * inoutSDC.BusinessPartner.Address.AddressID（アドレスID）
-* inoutSDC.BusinessPartner.SalesArea.SalesOrganization（販売組織）
-* inoutSDC.BusinessPartner.SalesArea.DistributionChannel（流通チャネル）
-* inoutSDC.BusinessPartner.SalesArea.Division（部門）
-* inoutSDC.Customer（得意先コード ※ビジネスパートナの販売エリア・会社コード関連のAPIをコールするときにビジネスパートナではなく得意先コードとしての項目値が必要です。通常は、ビジネスパートナの値＝得意先コードの値、となります）
+* inoutSDC.BusinessPartner.Bank.BankCountryKey（銀行国コード）
+* inoutSDC.BusinessPartner.Bank.BankNumber（銀行コード）
+* inoutSDC.BusinessPartner.CustomerData.Customer（得意先コード ※ビジネスパートナの販売エリア・会社コード関連のAPIをコールするときにビジネスパートナではなく得意先コードとしての項目値が必要です。通常は、ビジネスパートナの値＝得意先コードの値、となります）
+* inoutSDC.BusinessPartner.CustomerData.SalesArea.SalesOrganization（販売組織）
+* inoutSDC.BusinessPartner.CustomerData.SalesArea.DistributionChannel（流通チャネル）
+* inoutSDC.BusinessPartner.CustomerData.SalesArea.Division（部門）
 * inoutSDC.BusinessPartner.Company.CompanyCode（会社コード）
 
 ## SAP API Bussiness Hub の API の選択的コール
@@ -54,10 +70,10 @@ accepter において 下記の例のように、データの種別（＝APIの�
 ここでは、"Role" が指定されています。    
   
 ```
-  "api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
-  "accepter": ["Role"],
-  "business_partner_code": "9980002060",
-  "deleted": false
+	"api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
+	"accepter": ["General"],
+	"business_partner_code": "1000140",
+	"deleted": false
 ```
   
 * 全データを取得する際のsample.jsonの記載例(2)  
@@ -65,10 +81,10 @@ accepter において 下記の例のように、データの種別（＝APIの�
 全データを取得する場合、sample.json は以下のように記載します。  
 
 ```
-  "api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
-  "accepter": ["All"],
-  "business_partner_code": "9980002060",
-  "deleted": false
+	"api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
+	"accepter": ["All"],
+	"business_partner_code": "1000140",
+	"deleted": false
 ```
 
 ## 指定されたデータ種別のコール
@@ -77,11 +93,16 @@ accepter における データ種別 の指定に基づいて SAP_API_Caller �
 caller.go の func() 毎 の 以下の箇所が、指定された API をコールするソースコードです。  
 
 ```
-func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, addressID, salesOrganization, distributionChannel, division, customer, companyCode string, accepter []string) {
+func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, addressID, bankCountryKey, bankNumber, customer, salesOrganization, distributionChannel, division, companyCode string, accepter []string) {
 	wg := &sync.WaitGroup{}
 	wg.Add(len(accepter))
 	for _, fn := range accepter {
 		switch fn {
+		case "General":
+			func() {
+				c.General(businessPartner)
+				wg.Done()
+			}()
 		case "Role":
 			func() {
 				c.Role(businessPartner, businessPartnerRole)
@@ -90,6 +111,16 @@ func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, 
 		case "Address":
 			func() {
 				c.Address(businessPartner, addressID)
+				wg.Done()
+			}()
+		case "Bank":
+			func() {
+				c.Bank(businessPartner, bankCountryKey, bankNumber)
+				wg.Done()
+			}()
+		case "Customer":
+			func() {
+				c.Customer(customer)
 				wg.Done()
 			}()
 		case "SalesArea":
@@ -112,20 +143,69 @@ func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, 
 ```
 ## Output  
 本マイクロサービスでは、[golang-logging-library](https://github.com/latonaio/golang-logging-library) により、以下のようなデータがJSON形式で出力されます。  
-以下の sample.json の例は、ビジネスパートナ の ロール が取得された結果の JSON の例です。  
-以下の項目のうち、"BusinessPartner" ～ "ValidTo" は、/SAP_API_Output_Formatter/type.go 内 の Type Product {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
+以下の sample.json の例は、ビジネスパートナ得意先 の 一般データ が取得された結果の JSON の例です。  
+以下の項目のうち、"BusinessPartner" ～ "to_Customer" は、/SAP_API_Output_Formatter/type.go 内 の Type Product {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
 
 ```
 {
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L68",
-	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Role",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L83",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).General",
 	"level": "INFO",
-	"message": {
-		"BusinessPartner": "9980002060",
-		"BusinessPartnerRole": "BUP003",
-		"ValidFrom": "/Date(1470355200000+0000)/",
-		"ValidTo": "/Date(253402300799000+0000)/"
-	},
-	"time": "2021-12-18T21:59:33.887379+09:00"
+	"message": [
+		{
+			"BusinessPartner": "1000140",
+			"Customer": "1000140",
+			"Supplier": "",
+			"AcademicTitle": "",
+			"AuthorizationGroup": "",
+			"BusinessPartnerCategory": "2",
+			"BusinessPartnerFullName": "Cust10",
+			"BusinessPartnerGrouping": "BP02",
+			"BusinessPartnerName": "Cust10",
+			"CorrespondenceLanguage": "",
+			"CreationDate": "/Date(1527206400000)/",
+			"CreationTime": "PT14H04M56S",
+			"FirstName": "",
+			"Industry": "",
+			"IsFemale": false,
+			"IsMale": false,
+			"IsNaturalPerson": "",
+			"IsSexUnknown": false,
+			"GenderCodeName": "",
+			"Language": "",
+			"LastChangeDate": "/Date(1583452800000)/",
+			"LastChangeTime": "PT07H53M50S",
+			"LastName": "",
+			"OrganizationBPName1": "Cust10",
+			"OrganizationBPName2": "",
+			"OrganizationBPName3": "",
+			"OrganizationBPName4": "",
+			"OrganizationFoundationDate": "",
+			"OrganizationLiquidationDate": "",
+			"SearchTerm1": "CUST10",
+			"SearchTerm2": "",
+			"AdditionalLastName": "",
+			"BirthDate": "",
+			"BusinessPartnerBirthplaceName": "",
+			"BusinessPartnerDeathDate": "",
+			"BusinessPartnerIsBlocked": false,
+			"BusinessPartnerType": "",
+			"GroupBusinessPartnerName1": "",
+			"GroupBusinessPartnerName2": "",
+			"IndependentAddressID": "",
+			"MiddleName": "",
+			"NameCountry": "",
+			"PersonFullName": "",
+			"PersonNumber": "",
+			"IsMarkedForArchiving": false,
+			"BusinessPartnerIDByExtSystem": "",
+			"TradingPartner": "",
+			"to_BusinessPartnerRole": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_BusinessPartnerRole",
+			"to_BusinessPartnerAddress": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_BusinessPartnerAddress",
+			"to_BusinessPartnerBank": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_BusinessPartnerBank",
+			"to_Customer": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_Customer"
+		}
+	],
+	"time": "2021-12-20T20:01:28.737003+09:00"
 }
 ```

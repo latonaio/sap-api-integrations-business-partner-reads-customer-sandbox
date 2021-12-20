@@ -1,0 +1,30 @@
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L350",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Customer",
+	"level": "INFO",
+	"message": [
+		{
+			"Customer": "1000140",
+			"AuthorizationGroup": "",
+			"BillingIsBlockedForCustomer": "",
+			"CreationDate": "/Date(1527206400000)/",
+			"CustomerAccountGroup": "CUST",
+			"CustomerClassification": "",
+			"CustomerFullName": "Company Cust10/06037 Berlin",
+			"CustomerName": "Cust10",
+			"DeliveryIsBlocked": "",
+			"OrderIsBlockedForCustomer": "",
+			"PostingIsBlocked": false,
+			"Supplier": "",
+			"CustomerCorporateGroup": "",
+			"Industry": "",
+			"TaxNumber1": "",
+			"DeletionIndicator": false,
+			"CityCode": "",
+			"County": "",
+			"to_CustomerSalesArea": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_Customer('1000140')/to_CustomerSalesArea",
+			"to_CustomerCompany": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_Customer('1000140')/to_CustomerCompany"
+		}
+	],
+	"time": "2021-12-20T20:54:27.056722+09:00"
+}
