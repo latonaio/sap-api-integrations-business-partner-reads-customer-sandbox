@@ -4,7 +4,7 @@
 	"redis_key": "abcdefg",
 	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
 	"business_partner":  {
-            "BusinessPartner": "",
+            "BusinessPartner": "202",
 		    "BusinessPartnerRole": "",
             "ValidFrom": "",
             "ValidTo": "",
