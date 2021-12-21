@@ -24,7 +24,7 @@ sap-api-integrations-business-partner-reads-customer が対応する APIサー�
 ## 本レポジトリ に 含まれる API名
 sap-api-integrations-business-partner-reads-customer には、次の API をコールするためのリソースが含まれています。  
 
-* A_BusinessPartner（ビジネスパートナ - 一般）※ビジネスパートナ一般データの詳細データを取得するために、ToRole、ToAddress、ToBank、ToCustomer、ToSalesArea、ToPartnerFunction、ToCompany、と合わせて利用されます。
+* A_BusinessPartner（ビジネスパートナ - 一般）※ビジネスパートナ一般の詳細データを取得するために、ToRole、ToAddress、ToBank、ToCustomer、ToSalesArea、ToPartnerFunction、ToCompany、と合わせて利用されます。
 * ToRole（ビジネスパートナ - ロール）
 * ToAddress（ビジネスパートナ - アドレス）
 * ToBank（ビジネスパートナ - 銀行）
@@ -35,11 +35,11 @@ sap-api-integrations-business-partner-reads-customer には、次の API をコ�
 * A_BusinessPartnerRole（ビジネスパートナ - ロール）
 * A_BusinessPartnerAddress（ビジネスパートナ - アドレス）
 * A_BusinessPartnerBank（ビジネスパートナ - 銀行）
-* A_Customer（ビジネスパートナ - 得意先）※ビジネスパートナ一般データの詳細データを取得するために、ToSalesArea、ToPartnerFunction、ToCompany、と合わせて利用されます。
+* A_Customer（ビジネスパートナ - 得意先）※ビジネスパートナ得意先の詳細データを取得するために、ToSalesArea、ToPartnerFunction、ToCompany、と合わせて利用されます。
 * ToSalesArea（ビジネスパートナ - 得意先販売エリア）
 * ToPartnerFunction（ビジネスパートナ - 取引先機能）
 * ToCompany（ビジネスパートナ - 会社）
-* A_CustomerSalesArea（ビジネスパートナ - 得意先販売エリア）※ビジネスパートナ得意先販売データの詳細データを取得するために、ToPartnerFunction、と合わせて利用されます。
+* A_CustomerSalesArea（ビジネスパートナ - 得意先販売エリア）※ビジネスパートナ得意先販売エリアの詳細データを取得するために、ToPartnerFunction、と合わせて利用されます。
 * ToPartnerFunction（ビジネスパートナ - 取引先機能）
 
 
