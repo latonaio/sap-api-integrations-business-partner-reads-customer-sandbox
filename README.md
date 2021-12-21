@@ -67,11 +67,11 @@ Latona および AION の SAP 関連リソースでは、Inputs フォルダ下�
 * sample.jsonの記載例(1)  
 
 accepter において 下記の例のように、データの種別（＝APIの種別）を指定します。  
-ここでは、"General" が指定されています。    
+ここでは、"Customer" が指定されています。    
   
 ```
 	"api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
-	"accepter": ["General"],
+	"accepter": ["Customer"],
 	"business_partner_code": "1000140",
 	"deleted": false
 ```
@@ -143,69 +143,38 @@ func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, 
 ```
 ## Output  
 本マイクロサービスでは、[golang-logging-library](https://github.com/latonaio/golang-logging-library) により、以下のようなデータがJSON形式で出力されます。  
-以下の sample.json の例は、ビジネスパートナ得意先 の 一般データ が取得された結果の JSON の例です。  
-以下の項目のうち、"BusinessPartner" ～ "to_Customer" は、/SAP_API_Output_Formatter/type.go 内 の Type Product {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
+以下の sample.json の例は、ビジネスパートナ得意先 の 得意先データ が取得された結果の JSON の例です。  
+以下の項目のうち、"Customer" ～ "to_CustomerCompany" は、/SAP_API_Output_Formatter/type.go 内 の Type Customer {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
 
 ```
 {
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L83",
-	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).General",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L350",
+	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Customer",
 	"level": "INFO",
 	"message": [
 		{
-			"BusinessPartner": "1000140",
 			"Customer": "1000140",
-			"Supplier": "",
-			"AcademicTitle": "",
 			"AuthorizationGroup": "",
-			"BusinessPartnerCategory": "2",
-			"BusinessPartnerFullName": "Cust10",
-			"BusinessPartnerGrouping": "BP02",
-			"BusinessPartnerName": "Cust10",
-			"CorrespondenceLanguage": "",
+			"BillingIsBlockedForCustomer": "",
 			"CreationDate": "/Date(1527206400000)/",
-			"CreationTime": "PT14H04M56S",
-			"FirstName": "",
+			"CustomerAccountGroup": "CUST",
+			"CustomerClassification": "",
+			"CustomerFullName": "Company Cust10/06037 Berlin",
+			"CustomerName": "Cust10",
+			"DeliveryIsBlocked": "",
+			"OrderIsBlockedForCustomer": "",
+			"PostingIsBlocked": false,
+			"Supplier": "",
+			"CustomerCorporateGroup": "",
 			"Industry": "",
-			"IsFemale": false,
-			"IsMale": false,
-			"IsNaturalPerson": "",
-			"IsSexUnknown": false,
-			"GenderCodeName": "",
-			"Language": "",
-			"LastChangeDate": "/Date(1583452800000)/",
-			"LastChangeTime": "PT07H53M50S",
-			"LastName": "",
-			"OrganizationBPName1": "Cust10",
-			"OrganizationBPName2": "",
-			"OrganizationBPName3": "",
-			"OrganizationBPName4": "",
-			"OrganizationFoundationDate": "",
-			"OrganizationLiquidationDate": "",
-			"SearchTerm1": "CUST10",
-			"SearchTerm2": "",
-			"AdditionalLastName": "",
-			"BirthDate": "",
-			"BusinessPartnerBirthplaceName": "",
-			"BusinessPartnerDeathDate": "",
-			"BusinessPartnerIsBlocked": false,
-			"BusinessPartnerType": "",
-			"GroupBusinessPartnerName1": "",
-			"GroupBusinessPartnerName2": "",
-			"IndependentAddressID": "",
-			"MiddleName": "",
-			"NameCountry": "",
-			"PersonFullName": "",
-			"PersonNumber": "",
-			"IsMarkedForArchiving": false,
-			"BusinessPartnerIDByExtSystem": "",
-			"TradingPartner": "",
-			"to_BusinessPartnerRole": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_BusinessPartnerRole",
-			"to_BusinessPartnerAddress": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_BusinessPartnerAddress",
-			"to_BusinessPartnerBank": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_BusinessPartnerBank",
-			"to_Customer": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_Customer"
+			"TaxNumber1": "",
+			"DeletionIndicator": false,
+			"CityCode": "",
+			"County": "",
+			"to_CustomerSalesArea": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_Customer('1000140')/to_CustomerSalesArea",
+			"to_CustomerCompany": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_Customer('1000140')/to_CustomerCompany"
 		}
 	],
-	"time": "2021-12-20T20:01:28.737003+09:00"
+	"time": "2021-12-20T20:54:27.056722+09:00"
 }
 ```
