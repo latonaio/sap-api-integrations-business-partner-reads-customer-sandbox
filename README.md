@@ -39,7 +39,7 @@ sap-api-integrations-business-partner-reads-customer には、次の API をコ�
 * ToSalesArea（ビジネスパートナ - 得意先販売エリア）
 * ToPartnerFunction（ビジネスパートナ - 取引先機能）
 * ToCompany（ビジネスパートナ - 会社）
-* A_CustomerSalesArea（ビジネスパートナ - 得意先販売エリア）※ビジネスパートナ一般データの詳細データを取得するために、ToPartnerFunction、と合わせて利用されます。
+* A_CustomerSalesArea（ビジネスパートナ - 得意先販売エリア）※ビジネスパートナ得意先販売データの詳細データを取得するために、ToPartnerFunction、と合わせて利用されます。
 * ToPartnerFunction（ビジネスパートナ - 取引先機能）
 
 

@@ -72,10 +72,10 @@ type SDC struct {
 		CreationTime                  string      `json:"CreationTime"`
 		FirstName                     string      `json:"FirstName"`
 		Industry                      string      `json:"Industry"`
-		IsFemale                      interface{} `json:"IsFemale"`
-		IsMale                        interface{} `json:"IsMale"`
+		IsFemale                      bool        `json:"IsFemale"`
+		IsMale                        bool        `json:"IsMale"`
 		IsNaturalPerson               string      `json:"IsNaturalPerson"`
-		IsSexUnknown                  interface{} `json:"IsSexUnknown"`
+		IsSexUnknown                  bool        `json:"IsSexUnknown"`
 		GenderCodeName                string      `json:"GenderCodeName"`
 		Language                      string      `json:"Language"`
 		LastChangeDate                string      `json:"LastChangeDate"`
@@ -93,7 +93,7 @@ type SDC struct {
 		BirthDate                     string      `json:"BirthDate"`
 		BusinessPartnerBirthplaceName string      `json:"BusinessPartnerBirthplaceName"`
 		BusinessPartnerDeathDate      string      `json:"BusinessPartnerDeathDate"`
-		BusinessPartnerIsBlocked      interface{} `json:"BusinessPartnerIsBlocked"`
+		BusinessPartnerIsBlocked      bool        `json:"BusinessPartnerIsBlocked"`
 		BusinessPartnerType           string      `json:"BusinessPartnerType"`
 		GroupBusinessPartnerName1     string      `json:"GroupBusinessPartnerName1"`
 		GroupBusinessPartnerName2     string      `json:"GroupBusinessPartnerName2"`
@@ -102,7 +102,7 @@ type SDC struct {
 		NameCountry                   string      `json:"NameCountry"`
 		PersonFullName                string      `json:"PersonFullName"`
 		PersonNumber                  string      `json:"PersonNumber"`
-		IsMarkedForArchiving          interface{} `json:"IsMarkedForArchiving"`
+		IsMarkedForArchiving          bool        `json:"IsMarkedForArchiving"`
 		BusinessPartnerIDByExtSystem  string      `json:"BusinessPartnerIDByExtSystem"`
 		TradingPartner                string      `json:"TradingPartner"`
 		Role                          struct {
@@ -136,7 +136,7 @@ type SDC struct {
 			IBANValidityStartDate    string      `json:"IBANValidityStartDate"`
 			BankAccount              string      `json:"BankAccount"`
 			BankAccountReferenceText string      `json:"BankAccountReferenceText"`
-			CollectionAuthInd        interface{} `json:"CollectionAuthInd"`
+			CollectionAuthInd        bool        `json:"CollectionAuthInd"`
 			CityName                 string      `json:"CityName"`
 			AuthorizationGroup       string      `json:"AuthorizationGroup"`
 		} `json:"Bank"`
@@ -151,12 +151,12 @@ type SDC struct {
 			CustomerName                string      `json:"CustomerName"`
 			DeliveryIsBlocked           string      `json:"DeliveryIsBlocked"`
 			OrderIsBlockedForCustomer   string      `json:"OrderIsBlockedForCustomer"`
-			PostingIsBlocked            interface{} `json:"PostingIsBlocked"`
+			PostingIsBlocked            bool        `json:"PostingIsBlocked"`
 			Supplier                    string      `json:"Supplier"`
 			CustomerCorporateGroup      string      `json:"CustomerCorporateGroup"`
 			Industry                    string      `json:"Industry"`
 			TaxNumber1                  string      `json:"TaxNumber1"`
-			DeletionIndicator           interface{} `json:"DeletionIndicator"`
+			DeletionIndicator           bool        `json:"DeletionIndicator"`
 			CityCode                    string      `json:"CityCode"`
 			County                      string      `json:"County"`
 			SalesArea                   struct {
@@ -186,6 +186,15 @@ type SDC struct {
 				DeliveryIsBlockedForCustomer   string `json:"DeliveryIsBlockedForCustomer"`
 				BillingIsBlockedForCustomer    string `json:"BillingIsBlockedForCustomer"`
 				DeletionIndicator              bool   `json:"DeletionIndicator"`
+				PartnerFunction                struct {
+					PartnerCounter             string      `json:"PartnerCounter"`
+					PartnerFunction            string      `json:"PartnerFunction"`
+					BPCustomerNumber           string      `json:"BPCustomerNumber"`
+					CustomerPartnerDescription string      `json:"CustomerPartnerDescription"`
+					DefaultPartner             bool        `json:"DefaultPartner"`
+					Supplier                   string      `json:"Supplier"`
+					AuthorizationGroup         string      `json:"AuthorizationGroup"`
+				} `json:"PartnerFunction"`
 			} `json:"Sales_Area"`
 		} `json:"CustomerData"`
 		Company struct {

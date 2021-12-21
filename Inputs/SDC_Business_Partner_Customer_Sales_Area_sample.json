@@ -5,7 +5,7 @@
 	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
 	"business_partner": {
 		"BusinessPartner": "1000140",
-		"Customer": "",
+		"Customer": "1000140",
 		"Supplier": "",
 		"AcademicTitle": "",
 		"AuthorizationGroup": "",
@@ -131,7 +131,16 @@
 				"OrderIsBlockedForCustomer": "",
 				"DeliveryIsBlockedForCustomer": "",
 				"BillingIsBlockedForCustomer": "",
-				"DeletionIndicator": false
+				"DeletionIndicator": false,
+				"PartnerFunction": {
+					"PartnerCounter": "",
+					"PartnerFunction": "",
+					"BPCustomerNumber": "",
+					"CustomerPartnerDescription": "",
+					"DefaultPartner": null,
+					"Supplier": "",
+					"AuthorizationGroup": ""
+				}
 			}
 		},
 		"Company": {

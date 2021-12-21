@@ -131,7 +131,16 @@
 				"OrderIsBlockedForCustomer": "",
 				"DeliveryIsBlockedForCustomer": "",
 				"BillingIsBlockedForCustomer": "",
-				"DeletionIndicator": false
+				"DeletionIndicator": false,
+				"PartnerFunction": {
+					"PartnerCounter": "",
+					"PartnerFunction": "",
+					"BPCustomerNumber": "",
+					"CustomerPartnerDescription": "",
+					"DefaultPartner": null,
+					"Supplier": "",
+					"AuthorizationGroup": ""
+				}
 			}
 		},
 		"Company": {
