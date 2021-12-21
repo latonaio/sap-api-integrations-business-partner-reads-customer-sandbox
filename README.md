@@ -67,7 +67,7 @@ Latona および AION の SAP 関連リソースでは、Inputs フォルダ下�
 * sample.jsonの記載例(1)  
 
 accepter において 下記の例のように、データの種別（＝APIの種別）を指定します。  
-ここでは、"Role" が指定されています。    
+ここでは、"General" が指定されています。    
   
 ```
 	"api_schema": "sap.s4.beh.businesspartner.v1.BusinessPartner.Created.v1",
