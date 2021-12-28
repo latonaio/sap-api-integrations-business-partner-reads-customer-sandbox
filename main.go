@@ -18,7 +18,7 @@ func main() {
 	accepter := inoutSDC.Accepter
 	if len(accepter) == 0 || accepter[0] == "All" {
 		accepter = []string{
-			"General", "Role", "Address", "Bank", "Customer", "SalesArea", "Company",
+			"General", "Role", "Address", "Bank", "BPName", "Customer", "SalesArea", "Company",
 		}
 	}
 
@@ -28,6 +28,7 @@ func main() {
 		inoutSDC.BusinessPartner.Address.AddressID,
 		inoutSDC.BusinessPartner.Bank.BankCountryKey,
 		inoutSDC.BusinessPartner.Bank.BankNumber,
+		inoutSDC.BusinessPartner.BusinessPartnerName,
 		inoutSDC.BusinessPartner.CustomerData.Customer,
 		inoutSDC.BusinessPartner.CustomerData.SalesArea.SalesOrganization,
 		inoutSDC.BusinessPartner.CustomerData.SalesArea.DistributionChannel,
