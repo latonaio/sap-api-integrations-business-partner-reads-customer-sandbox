@@ -1,5 +1,5 @@
 {
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L364",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L430",
 	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Customer",
 	"level": "INFO",
 	"message": [
@@ -56,5 +56,5 @@
 			"AuthorizationGroup": ""
 		}
 	],
-	"time": "2021-12-20T20:54:27.823905+09:00"
+	"time": "2022-01-27T21:57:31+09:00"
 }

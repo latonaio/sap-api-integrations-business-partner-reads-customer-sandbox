@@ -1,5 +1,5 @@
 {
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L357",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L423",
 	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).Customer",
 	"level": "INFO",
 	"message": [
@@ -34,5 +34,5 @@
 			"to_PartnerFunction": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_CustomerSalesArea(Customer='1000140',SalesOrganization='1710',DistributionChannel='10',Division='00')/to_PartnerFunction"
 		}
 	],
-	"time": "2021-12-20T20:54:27.4664+09:00"
+	"time": "2022-01-27T21:57:31+09:00"
 }

@@ -1,5 +1,5 @@
 {
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L132",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L137",
 	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).General",
 	"level": "INFO",
 	"message": [
@@ -15,5 +15,5 @@
 			"DeletionIndicator": false
 		}
 	],
-	"time": "2021-12-20T20:01:31.384235+09:00"
+	"time": "2022-01-27T21:53:23+09:00"
 }

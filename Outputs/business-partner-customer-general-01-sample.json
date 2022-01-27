@@ -1,5 +1,5 @@
 {
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L83",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L88",
 	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).General",
 	"level": "INFO",
 	"message": [
@@ -14,7 +14,7 @@
 			"BusinessPartnerGrouping": "BP02",
 			"BusinessPartnerName": "Cust10",
 			"CorrespondenceLanguage": "",
-			"CreationDate": "/Date(1527206400000)/",
+			"CreationDate": "2018-05-25T09:00:00+09:00",
 			"CreationTime": "PT14H04M56S",
 			"FirstName": "",
 			"Industry": "",
@@ -24,7 +24,7 @@
 			"IsSexUnknown": false,
 			"GenderCodeName": "",
 			"Language": "",
-			"LastChangeDate": "/Date(1583452800000)/",
+			"LastChangeDate": "2020-03-06T09:00:00+09:00",
 			"LastChangeTime": "PT07H53M50S",
 			"LastName": "",
 			"OrganizationBPName1": "Cust10",
@@ -57,5 +57,5 @@
 			"to_Customer": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000140')/to_Customer"
 		}
 	],
-	"time": "2021-12-20T20:01:28.737003+09:00"
+	"time": "2022-01-27T21:53:20+09:00"
 }

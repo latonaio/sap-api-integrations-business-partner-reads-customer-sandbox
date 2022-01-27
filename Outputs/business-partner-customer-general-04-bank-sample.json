@@ -1,5 +1,5 @@
 {
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L104",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-business-partner-reads-customer/SAP_API_Caller/caller.go#L109",
 	"function": "sap-api-integrations-business-partner-reads-customer/SAP_API_Caller.(*SAPAPICaller).General",
 	"level": "INFO",
 	"message": [
@@ -13,8 +13,8 @@
 			"BankControlKey": "",
 			"BankAccountHolderName": "",
 			"BankAccountName": "",
-			"ValidityStartDate": "/Date(1527206400000+0000)/",
-			"ValidityEndDate": "/Date(253402300799000+0000)/",
+			"ValidityStartDate": "",
+			"ValidityEndDate": "",
 			"IBAN": "",
 			"IBANValidityStartDate": "",
 			"BankAccount": "065799887",
@@ -24,5 +24,5 @@
 			"AuthorizationGroup": ""
 		}
 	],
-	"time": "2021-12-20T20:01:29.896656+09:00"
+	"time": "2022-01-27T21:53:21+09:00"
 }
