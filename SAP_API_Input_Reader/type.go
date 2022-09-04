@@ -58,53 +58,53 @@ type SDC struct {
 	RedisKey        string `json:"redis_key"`
 	Filepath        string `json:"filepath"`
 	BusinessPartner struct {
-		BusinessPartner               string      `json:"BusinessPartner"`
-		Customer                      string      `json:"Customer"`
-		Supplier                      string      `json:"Supplier"`
-		AcademicTitle                 string      `json:"AcademicTitle"`
-		AuthorizationGroup            string      `json:"AuthorizationGroup"`
-		BusinessPartnerCategory       string      `json:"BusinessPartnerCategory"`
-		BusinessPartnerFullName       string      `json:"BusinessPartnerFullName"`
-		BusinessPartnerGrouping       string      `json:"BusinessPartnerGrouping"`
-		BusinessPartnerName           string      `json:"BusinessPartnerName"`
-		CorrespondenceLanguage        string      `json:"CorrespondenceLanguage"`
-		CreationDate                  string      `json:"CreationDate"`
-		CreationTime                  string      `json:"CreationTime"`
-		FirstName                     string      `json:"FirstName"`
-		Industry                      string      `json:"Industry"`
-		IsFemale                      bool        `json:"IsFemale"`
-		IsMale                        bool        `json:"IsMale"`
-		IsNaturalPerson               string      `json:"IsNaturalPerson"`
-		IsSexUnknown                  bool        `json:"IsSexUnknown"`
-		GenderCodeName                string      `json:"GenderCodeName"`
-		Language                      string      `json:"Language"`
-		LastChangeDate                string      `json:"LastChangeDate"`
-		LastChangeTime                string      `json:"LastChangeTime"`
-		LastName                      string      `json:"LastName"`
-		OrganizationBPName1           string      `json:"OrganizationBPName1"`
-		OrganizationBPName2           string      `json:"OrganizationBPName2"`
-		OrganizationBPName3           string      `json:"OrganizationBPName3"`
-		OrganizationBPName4           string      `json:"OrganizationBPName4"`
-		OrganizationFoundationDate    string      `json:"OrganizationFoundationDate"`
-		OrganizationLiquidationDate   string      `json:"OrganizationLiquidationDate"`
-		SearchTerm1                   string      `json:"SearchTerm1"`
-		SearchTerm2                   string      `json:"SearchTerm2"`
-		AdditionalLastName            string      `json:"AdditionalLastName"`
-		BirthDate                     string      `json:"BirthDate"`
-		BusinessPartnerBirthplaceName string      `json:"BusinessPartnerBirthplaceName"`
-		BusinessPartnerDeathDate      string      `json:"BusinessPartnerDeathDate"`
-		BusinessPartnerIsBlocked      bool        `json:"BusinessPartnerIsBlocked"`
-		BusinessPartnerType           string      `json:"BusinessPartnerType"`
-		GroupBusinessPartnerName1     string      `json:"GroupBusinessPartnerName1"`
-		GroupBusinessPartnerName2     string      `json:"GroupBusinessPartnerName2"`
-		IndependentAddressID          string      `json:"IndependentAddressID"`
-		MiddleName                    string      `json:"MiddleName"`
-		NameCountry                   string      `json:"NameCountry"`
-		PersonFullName                string      `json:"PersonFullName"`
-		PersonNumber                  string      `json:"PersonNumber"`
-		IsMarkedForArchiving          bool        `json:"IsMarkedForArchiving"`
-		BusinessPartnerIDByExtSystem  string      `json:"BusinessPartnerIDByExtSystem"`
-		TradingPartner                string      `json:"TradingPartner"`
+		BusinessPartner               string `json:"BusinessPartner"`
+		Customer                      string `json:"Customer"`
+		Supplier                      string `json:"Supplier"`
+		AcademicTitle                 string `json:"AcademicTitle"`
+		AuthorizationGroup            string `json:"AuthorizationGroup"`
+		BusinessPartnerCategory       string `json:"BusinessPartnerCategory"`
+		BusinessPartnerFullName       string `json:"BusinessPartnerFullName"`
+		BusinessPartnerGrouping       string `json:"BusinessPartnerGrouping"`
+		BusinessPartnerName           string `json:"BusinessPartnerName"`
+		CorrespondenceLanguage        string `json:"CorrespondenceLanguage"`
+		CreationDate                  string `json:"CreationDate"`
+		CreationTime                  string `json:"CreationTime"`
+		FirstName                     string `json:"FirstName"`
+		Industry                      string `json:"Industry"`
+		IsFemale                      bool   `json:"IsFemale"`
+		IsMale                        bool   `json:"IsMale"`
+		IsNaturalPerson               string `json:"IsNaturalPerson"`
+		IsSexUnknown                  bool   `json:"IsSexUnknown"`
+		GenderCodeName                string `json:"GenderCodeName"`
+		Language                      string `json:"Language"`
+		LastChangeDate                string `json:"LastChangeDate"`
+		LastChangeTime                string `json:"LastChangeTime"`
+		LastName                      string `json:"LastName"`
+		OrganizationBPName1           string `json:"OrganizationBPName1"`
+		OrganizationBPName2           string `json:"OrganizationBPName2"`
+		OrganizationBPName3           string `json:"OrganizationBPName3"`
+		OrganizationBPName4           string `json:"OrganizationBPName4"`
+		OrganizationFoundationDate    string `json:"OrganizationFoundationDate"`
+		OrganizationLiquidationDate   string `json:"OrganizationLiquidationDate"`
+		SearchTerm1                   string `json:"SearchTerm1"`
+		SearchTerm2                   string `json:"SearchTerm2"`
+		AdditionalLastName            string `json:"AdditionalLastName"`
+		BirthDate                     string `json:"BirthDate"`
+		BusinessPartnerBirthplaceName string `json:"BusinessPartnerBirthplaceName"`
+		BusinessPartnerDeathDate      string `json:"BusinessPartnerDeathDate"`
+		BusinessPartnerIsBlocked      bool   `json:"BusinessPartnerIsBlocked"`
+		BusinessPartnerType           string `json:"BusinessPartnerType"`
+		GroupBusinessPartnerName1     string `json:"GroupBusinessPartnerName1"`
+		GroupBusinessPartnerName2     string `json:"GroupBusinessPartnerName2"`
+		IndependentAddressID          string `json:"IndependentAddressID"`
+		MiddleName                    string `json:"MiddleName"`
+		NameCountry                   string `json:"NameCountry"`
+		PersonFullName                string `json:"PersonFullName"`
+		PersonNumber                  string `json:"PersonNumber"`
+		IsMarkedForArchiving          bool   `json:"IsMarkedForArchiving"`
+		BusinessPartnerIDByExtSystem  string `json:"BusinessPartnerIDByExtSystem"`
+		TradingPartner                string `json:"TradingPartner"`
 		Role                          struct {
 			BusinessPartnerRole string `json:"BusinessPartnerRole"`
 			ValidFrom           string `json:"ValidFrom"`
@@ -122,43 +122,43 @@ type SDC struct {
 			Language          string `json:"Language"`
 		} `json:"Address"`
 		Bank struct {
-			BankIdentification       string      `json:"BankIdentification"`
-			BankCountryKey           string      `json:"BankCountryKey"`
-			BankName                 string      `json:"BankName"`
-			BankNumber               string      `json:"BankNumber"`
-			SWIFTCode                string      `json:"SWIFTCode"`
-			BankControlKey           string      `json:"BankControlKey"`
-			BankAccountHolderName    string      `json:"BankAccountHolderName"`
-			BankAccountName          string      `json:"BankAccountName"`
-			ValidityStartDate        string      `json:"ValidityStartDate"`
-			ValidityEndDate          string      `json:"ValidityEndDate"`
-			Iban                     string      `json:"IBAN"`
-			IBANValidityStartDate    string      `json:"IBANValidityStartDate"`
-			BankAccount              string      `json:"BankAccount"`
-			BankAccountReferenceText string      `json:"BankAccountReferenceText"`
-			CollectionAuthInd        bool        `json:"CollectionAuthInd"`
-			CityName                 string      `json:"CityName"`
-			AuthorizationGroup       string      `json:"AuthorizationGroup"`
+			BankIdentification       string `json:"BankIdentification"`
+			BankCountryKey           string `json:"BankCountryKey"`
+			BankName                 string `json:"BankName"`
+			BankNumber               string `json:"BankNumber"`
+			SWIFTCode                string `json:"SWIFTCode"`
+			BankControlKey           string `json:"BankControlKey"`
+			BankAccountHolderName    string `json:"BankAccountHolderName"`
+			BankAccountName          string `json:"BankAccountName"`
+			ValidityStartDate        string `json:"ValidityStartDate"`
+			ValidityEndDate          string `json:"ValidityEndDate"`
+			Iban                     string `json:"IBAN"`
+			IBANValidityStartDate    string `json:"IBANValidityStartDate"`
+			BankAccount              string `json:"BankAccount"`
+			BankAccountReferenceText string `json:"BankAccountReferenceText"`
+			CollectionAuthInd        bool   `json:"CollectionAuthInd"`
+			CityName                 string `json:"CityName"`
+			AuthorizationGroup       string `json:"AuthorizationGroup"`
 		} `json:"Bank"`
 		CustomerData struct {
-			Customer                    string      `json:"Customer"`
-			AuthorizationGroup          string      `json:"AuthorizationGroup"`
-			BillingIsBlockedForCustomer string      `json:"BillingIsBlockedForCustomer"`
-			CreationDate                string      `json:"CreationDate"`
-			CustomerAccountGroup        string      `json:"CustomerAccountGroup"`
-			CustomerClassification      string      `json:"CustomerClassification"`
-			CustomerFullName            string      `json:"CustomerFullName"`
-			CustomerName                string      `json:"CustomerName"`
-			DeliveryIsBlocked           string      `json:"DeliveryIsBlocked"`
-			OrderIsBlockedForCustomer   string      `json:"OrderIsBlockedForCustomer"`
-			PostingIsBlocked            bool        `json:"PostingIsBlocked"`
-			Supplier                    string      `json:"Supplier"`
-			CustomerCorporateGroup      string      `json:"CustomerCorporateGroup"`
-			Industry                    string      `json:"Industry"`
-			TaxNumber1                  string      `json:"TaxNumber1"`
-			DeletionIndicator           bool        `json:"DeletionIndicator"`
-			CityCode                    string      `json:"CityCode"`
-			County                      string      `json:"County"`
+			Customer                    string `json:"Customer"`
+			AuthorizationGroup          string `json:"AuthorizationGroup"`
+			BillingIsBlockedForCustomer string `json:"BillingIsBlockedForCustomer"`
+			CreationDate                string `json:"CreationDate"`
+			CustomerAccountGroup        string `json:"CustomerAccountGroup"`
+			CustomerClassification      string `json:"CustomerClassification"`
+			CustomerFullName            string `json:"CustomerFullName"`
+			CustomerName                string `json:"CustomerName"`
+			DeliveryIsBlocked           string `json:"DeliveryIsBlocked"`
+			OrderIsBlockedForCustomer   string `json:"OrderIsBlockedForCustomer"`
+			PostingIsBlocked            bool   `json:"PostingIsBlocked"`
+			Supplier                    string `json:"Supplier"`
+			CustomerCorporateGroup      string `json:"CustomerCorporateGroup"`
+			Industry                    string `json:"Industry"`
+			TaxNumber1                  string `json:"TaxNumber1"`
+			DeletionIndicator           bool   `json:"DeletionIndicator"`
+			CityCode                    string `json:"CityCode"`
+			County                      string `json:"County"`
 			SalesArea                   struct {
 				SalesOrganization              string `json:"SalesOrganization"`
 				DistributionChannel            string `json:"DistributionChannel"`
@@ -187,13 +187,17 @@ type SDC struct {
 				BillingIsBlockedForCustomer    string `json:"BillingIsBlockedForCustomer"`
 				DeletionIndicator              bool   `json:"DeletionIndicator"`
 				PartnerFunction                struct {
-					PartnerCounter             string      `json:"PartnerCounter"`
-					PartnerFunction            string      `json:"PartnerFunction"`
-					BPCustomerNumber           string      `json:"BPCustomerNumber"`
-					CustomerPartnerDescription string      `json:"CustomerPartnerDescription"`
-					DefaultPartner             bool        `json:"DefaultPartner"`
-					Supplier                   string      `json:"Supplier"`
-					AuthorizationGroup         string      `json:"AuthorizationGroup"`
+					Customer                   string `json:"Customer"`
+					SalesOrganization          string `json:"SalesOrganization"`
+					DistributionChannel        string `json:"DistributionChannel"`
+					Division                   string `json:"Division"`
+					PartnerCounter             string `json:"PartnerCounter"`
+					PartnerFunction            string `json:"PartnerFunction"`
+					BPCustomerNumber           string `json:"BPCustomerNumber"`
+					CustomerPartnerDescription string `json:"CustomerPartnerDescription"`
+					DefaultPartner             bool   `json:"DefaultPartner"`
+					Supplier                   string `json:"Supplier"`
+					AuthorizationGroup         string `json:"AuthorizationGroup"`
 				} `json:"PartnerFunction"`
 			} `json:"Sales_Area"`
 		} `json:"CustomerData"`

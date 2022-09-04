@@ -133,11 +133,15 @@
 				"BillingIsBlockedForCustomer": "",
 				"DeletionIndicator": false,
 				"PartnerFunction": {
+					"Customer": "",
+					"SalesOrganization": "",
+					"DistributionChannel": "",
+					"Division": "",
 					"PartnerCounter": "",
 					"PartnerFunction": "",
 					"BPCustomerNumber": "",
 					"CustomerPartnerDescription": "",
-					"DefaultPartner": null,
+					"DefaultPartner": false,
 					"Supplier": "",
 					"AuthorizationGroup": ""
 				}
