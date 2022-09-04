@@ -1,43 +1,34 @@
-package sap_api_output_formatter
+package sap_api_input_reader
 
 import (
-	"encoding/json"
-	"sap-api-integrations-business-partner-creates-customer/SAP_API_Caller/responses"
-
-	"github.com/latonaio/golang-logging-library-for-sap/logger"
-	"golang.org/x/xerrors"
+	"sap-api-integrations-business-partner-creates-customer/SAP_API_Caller/requests"
 )
 
-func ConvertToGeneral(raw []byte, l *logger.Logger) (*General, error) {
-	pm := &responses.General{}
-	err := json.Unmarshal(raw, pm)
-	if err != nil {
-		return nil, xerrors.Errorf("cannot convert to General. raw data is:\n%v\nunmarshal error: %w", string(raw), err)
-	}
-	data := pm.D
-	general := &General{
-		BusinessPartner:               data.BusinessPartner,
-		Customer:                      data.Customer,
-		Supplier:                      data.Supplier,
-		AcademicTitle:                 data.AcademicTitle,
-		AuthorizationGroup:            data.AuthorizationGroup,
-		BusinessPartnerCategory:       data.BusinessPartnerCategory,
-		BusinessPartnerFullName:       data.BusinessPartnerFullName,
-		BusinessPartnerGrouping:       data.BusinessPartnerGrouping,
-		BusinessPartnerName:           data.BusinessPartnerName,
-		CorrespondenceLanguage:        data.CorrespondenceLanguage,
-		CreationDate:                  data.CreationDate,
-		CreationTime:                  data.CreationTime,
-		FirstName:                     data.FirstName,
-		Industry:                      data.Industry,
-		IsFemale:                      data.IsFemale,
-		IsMale:                        data.IsMale,
-		IsNaturalPerson:               data.IsNaturalPerson,
-		IsSexUnknown:                  data.IsSexUnknown,
-		GenderCodeName:                data.GenderCodeName,
-		Language:                      data.Language,
-		LastChangeDate:                data.LastChangeDate,
-		LastChangeTime:                data.LastChangeTime,
+func (sdc *SDC) ConvertToGeneral() *requests.General {
+	data := sdc.BusinessPartner
+	return &requests.General{
+		BusinessPartner: data.BusinessPartner,
+		//	Customer:                       data.Customer,
+		//	Supplier:                       data.Supplier,
+		AcademicTitle:           data.AcademicTitle,
+		AuthorizationGroup:      data.AuthorizationGroup,
+		BusinessPartnerCategory: data.BusinessPartnerCategory,
+		//	BusinessPartnerFullName:        data.BusinessPartnerFullName,
+		BusinessPartnerGrouping: data.BusinessPartnerGrouping,
+		//	BusinessPartnerName:            data.BusinessPartnerName,
+		CorrespondenceLanguage: data.CorrespondenceLanguage,
+		//	CreationDate:                   data.CreationDate,
+		//	CreationTime:                   data.CreationTime,
+		FirstName:       data.FirstName,
+		Industry:        data.Industry,
+		IsFemale:        data.IsFemale,
+		IsMale:          data.IsMale,
+		IsNaturalPerson: data.IsNaturalPerson,
+		IsSexUnknown:    data.IsSexUnknown,
+		GenderCodeName:  data.GenderCodeName,
+		Language:        data.Language,
+		//	LastChangeDate:                 data.LastChangeDate,
+		//	LastChangeTime:                 data.LastChangeTime,
 		LastName:                      data.LastName,
 		OrganizationBPName1:           data.OrganizationBPName1,
 		OrganizationBPName2:           data.OrganizationBPName2,
@@ -50,50 +41,38 @@ func ConvertToGeneral(raw []byte, l *logger.Logger) (*General, error) {
 		AdditionalLastName:            data.AdditionalLastName,
 		BirthDate:                     data.BirthDate,
 		BusinessPartnerBirthplaceName: data.BusinessPartnerBirthplaceName,
-		BusinessPartnerDeathDate:      data.BusinessPartnerDeathDate,
-		BusinessPartnerIsBlocked:      data.BusinessPartnerIsBlocked,
-		BusinessPartnerType:           data.BusinessPartnerType,
-		GroupBusinessPartnerName1:     data.GroupBusinessPartnerName1,
-		GroupBusinessPartnerName2:     data.GroupBusinessPartnerName2,
-		IndependentAddressID:          data.IndependentAddressID,
-		MiddleName:                    data.MiddleName,
-		NameCountry:                   data.NameCountry,
-		PersonFullName:                data.PersonFullName,
-		PersonNumber:                  data.PersonNumber,
-		IsMarkedForArchiving:          data.IsMarkedForArchiving,
-		BusinessPartnerIDByExtSystem:  data.BusinessPartnerIDByExtSystem,
-		TradingPartner:                data.TradingPartner,
+		// BusinessPartnerDeathDate:       data.BusinessPartnerDeathDate,
+		BusinessPartnerIsBlocked:  data.BusinessPartnerIsBlocked,
+		BusinessPartnerType:       data.BusinessPartnerType,
+		GroupBusinessPartnerName1: data.GroupBusinessPartnerName1,
+		GroupBusinessPartnerName2: data.GroupBusinessPartnerName2,
+		//	IndependentAddressID:           data.IndependentAddressID,
+		MiddleName:                   data.MiddleName,
+		NameCountry:                  data.NameCountry,
+		PersonFullName:               data.PersonFullName,
+		PersonNumber:                 data.PersonNumber,
+		IsMarkedForArchiving:         data.IsMarkedForArchiving,
+		BusinessPartnerIDByExtSystem: data.BusinessPartnerIDByExtSystem,
+		TradingPartner:               data.TradingPartner,
 	}
-
-	return general, nil
 }
 
-func ConvertToRole(raw []byte, l *logger.Logger) (*Role, error) {
-	pm := &responses.Role{}
-	err := json.Unmarshal(raw, pm)
-	if err != nil {
-		return nil, xerrors.Errorf("cannot convert to Role. raw data is:\n%v\nunmarshal error: %w", string(raw), err)
-	}
-	data := pm.D
-	role := &Role{
-		BusinessPartner:     data.BusinessPartner,
+func (sdc *SDC) ConvertToRole() *requests.Role {
+	dataBusinessPartner := sdc.BusinessPartner
+	data := sdc.BusinessPartner.Role
+	return &requests.Role{
+		BusinessPartner:     dataBusinessPartner.BusinessPartner,
 		BusinessPartnerRole: data.BusinessPartnerRole,
 		ValidFrom:           data.ValidFrom,
 		ValidTo:             data.ValidTo,
 	}
-
-	return role, nil
 }
 
-func ConvertToAddress(raw []byte, l *logger.Logger) (*Address, error) {
-	pm := &responses.Address{}
-	err := json.Unmarshal(raw, pm)
-	if err != nil {
-		return nil, xerrors.Errorf("cannot convert to Address. raw data is:\n%v\nunmarshal error: %w", string(raw), err)
-	}
-	data := pm.D
-	address := &Address{
-		BusinessPartner:   data.BusinessPartner,
+func (sdc *SDC) ConvertToAddress() *requests.Address {
+	dataBusinessPartner := sdc.BusinessPartner
+	data := sdc.BusinessPartner.Address
+	return &requests.Address{
+		BusinessPartner:   dataBusinessPartner.BusinessPartner,
 		AddressID:         data.AddressID,
 		ValidityStartDate: data.ValidityStartDate,
 		ValidityEndDate:   data.ValidityEndDate,
@@ -104,19 +83,13 @@ func ConvertToAddress(raw []byte, l *logger.Logger) (*Address, error) {
 		PostalCode:        data.PostalCode,
 		Language:          data.Language,
 	}
-
-	return address, nil
 }
 
-func ConvertToBank(raw []byte, l *logger.Logger) (*Bank, error) {
-	pm := &responses.Bank{}
-	err := json.Unmarshal(raw, pm)
-	if err != nil {
-		return nil, xerrors.Errorf("cannot convert to Bank. raw data is:\n%v\nunmarshal error: %w", string(raw), err)
-	}
-	data := pm.D
-	bank := &Bank{
-		BusinessPartner:          data.BusinessPartner,
+func (sdc *SDC) ConvertToBank() *requests.Bank {
+	dataBusinessPartner := sdc.BusinessPartner
+	data := sdc.BusinessPartner.Bank
+	return &requests.Bank{
+		BusinessPartner:          dataBusinessPartner.BusinessPartner,
 		BankIdentification:       data.BankIdentification,
 		BankCountryKey:           data.BankCountryKey,
 		BankName:                 data.BankName,
@@ -135,18 +108,11 @@ func ConvertToBank(raw []byte, l *logger.Logger) (*Bank, error) {
 		CityName:                 data.CityName,
 		AuthorizationGroup:       data.AuthorizationGroup,
 	}
-
-	return bank, nil
 }
 
-func ConvertToCustomer(raw []byte, l *logger.Logger) (*Customer, error) {
-	pm := &responses.Customer{}
-	err := json.Unmarshal(raw, pm)
-	if err != nil {
-		return nil, xerrors.Errorf("cannot convert to Customer. raw data is:\n%v\nunmarshal error: %w", string(raw), err)
-	}
-	data := pm.D
-	customer := &Customer{
+func (sdc *SDC) ConvertToCustomer() *requests.Customer {
+	data := sdc.BusinessPartner.CustomerData
+	return &requests.Customer{
 		Customer:                    data.Customer,
 		AuthorizationGroup:          data.AuthorizationGroup,
 		BillingIsBlockedForCustomer: data.BillingIsBlockedForCustomer,
@@ -166,19 +132,13 @@ func ConvertToCustomer(raw []byte, l *logger.Logger) (*Customer, error) {
 		CityCode:                    data.CityCode,
 		County:                      data.County,
 	}
-
-	return customer, nil
 }
 
-func ConvertToSalesArea(raw []byte, l *logger.Logger) (*SalesArea, error) {
-	pm := &responses.SalesArea{}
-	err := json.Unmarshal(raw, pm)
-	if err != nil {
-		return nil, xerrors.Errorf("cannot convert to SalesArea. raw data is:\n%v\nunmarshal error: %w", string(raw), err)
-	}
-	data := pm.D
-	salesArea := &SalesArea{
-		Customer:                       data.Customer,
+func (sdc *SDC) ConvertToSalesArea() *requests.SalesArea {
+	dataCustomer := sdc.BusinessPartner.CustomerData
+	data := sdc.BusinessPartner.CustomerData.SalesArea
+	return &requests.SalesArea{
+		Customer:                       dataCustomer.Customer,
 		SalesOrganization:              data.SalesOrganization,
 		DistributionChannel:            data.DistributionChannel,
 		Division:                       data.Division,
@@ -206,19 +166,13 @@ func ConvertToSalesArea(raw []byte, l *logger.Logger) (*SalesArea, error) {
 		BillingIsBlockedForCustomer:    data.BillingIsBlockedForCustomer,
 		DeletionIndicator:              data.DeletionIndicator,
 	}
-
-	return salesArea, nil
 }
 
-func ConvertToPartnerFunction(raw []byte, l *logger.Logger) (*PartnerFunction, error) {
-	pm := &responses.PartnerFunction{}
-	err := json.Unmarshal(raw, pm)
-	if err != nil {
-		return nil, xerrors.Errorf("cannot convert to PartnerFunction. raw data is:\n%v\nunmarshal error: %w", string(raw), err)
-	}
-	data := pm.D
-	partnerFunction := &PartnerFunction{
-		Customer:                   data.Customer,
+func (sdc *SDC) ConvertToPartnerFunction() *requests.PartnerFunction {
+	dataPartnerFunction := sdc.BusinessPartner.CustomerData
+	data := sdc.BusinessPartner.CustomerData.SalesArea.PartnerFunction
+	return &requests.PartnerFunction{
+		Customer:                   dataPartnerFunction.Customer,
 		SalesOrganization:          data.SalesOrganization,
 		DistributionChannel:        data.DistributionChannel,
 		Division:                   data.Division,
@@ -230,19 +184,13 @@ func ConvertToPartnerFunction(raw []byte, l *logger.Logger) (*PartnerFunction, e
 		Supplier:                   data.Supplier,
 		AuthorizationGroup:         data.AuthorizationGroup,
 	}
-
-	return partnerFunction, nil
 }
 
-func ConvertToCompany(raw []byte, l *logger.Logger) (*Company, error) {
-	pm := &responses.Company{}
-	err := json.Unmarshal(raw, pm)
-	if err != nil {
-		return nil, xerrors.Errorf("cannot convert to Company. raw data is:\n%v\nunmarshal error: %w", string(raw), err)
-	}
-	data := pm.D
-	company := &Company{
-		Customer:                       data.Customer,
+func (sdc *SDC) ConvertToCompany() *requests.Company {
+	dataCustomer := sdc.BusinessPartner.CustomerData
+	data := sdc.BusinessPartner.CustomerData.Company
+	return &requests.Company{
+		Customer:                       dataCustomer.Customer,
 		CompanyCode:                    data.CompanyCode,
 		APARToleranceGroup:             data.APARToleranceGroup,
 		CustomerSupplierClearingIsUsed: data.CustomerSupplierClearingIsUsed,
@@ -252,6 +200,4 @@ func ConvertToCompany(raw []byte, l *logger.Logger) (*Company, error) {
 		ReconciliationAccount:          data.ReconciliationAccount,
 		DeletionIndicator:              data.DeletionIndicator,
 	}
-
-	return company, nil
 }

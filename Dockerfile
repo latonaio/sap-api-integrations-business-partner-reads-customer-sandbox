@@ -12,17 +12,16 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o sap-api-integrations-business-partner-reads-customer
+RUN go build -o sap-api-integrations-business-partner-creates-customer
 
 # Runtime Container
 FROM alpine:3.14
 RUN apk add --no-cache libc6-compat
-ENV SERVICE=sap-api-integrations-business-partner-reads-customer \
+ENV SERVICE=sap-api-integrations-business-partner-creates-customer \
     APP_DIR="${AION_HOME}/${POSITION}/${SERVICE}"
 
 WORKDIR ${AION_HOME}
 
-COPY --from=builder /go/src/github.com/latonaio/sap-api-integrations-business-partner-reads-customer .
-COPY --from=builder /go/src/github.com/latonaio/sample.json .
+COPY --from=builder /go/src/github.com/latonaio/sap-api-integrations-business-partner-creates-customer .
 
-CMD ["./sap-api-integrations-business-partner-reads-customer"]
+CMD ["./sap-api-integrations-business-partner-creates-customer"]

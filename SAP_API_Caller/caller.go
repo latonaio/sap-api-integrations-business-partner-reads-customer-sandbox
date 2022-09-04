@@ -1,59 +1,68 @@
 package sap_api_caller
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	sap_api_output_formatter "sap-api-integrations-business-partner-reads-customer/SAP_API_Output_Formatter"
+	"sap-api-integrations-business-partner-creates-customer/SAP_API_Caller/requests"
+	sap_api_output_formatter "sap-api-integrations-business-partner-creates-customer/SAP_API_Output_Formatter"
 	"strings"
 	"sync"
 
 	"github.com/latonaio/golang-logging-library-for-sap/logger"
+	sap_api_post_header_setup "github.com/latonaio/sap-api-post-header-setup"
 	"golang.org/x/xerrors"
 )
 
 type SAPAPICaller struct {
-	baseURL string
-	apiKey  string
-	log     *logger.Logger
+	baseURL         string
+	sapClientNumber string
+	postClient      *sap_api_post_header_setup.SAPPostClient
+	log             *logger.Logger
 }
 
-func NewSAPAPICaller(baseUrl string, l *logger.Logger) *SAPAPICaller {
+func NewSAPAPICaller(baseUrl, sapClientNumber string, postClient *sap_api_post_header_setup.SAPPostClient, l *logger.Logger) *SAPAPICaller {
 	return &SAPAPICaller{
-		baseURL: baseUrl,
-		apiKey:  GetApiKey(),
-		log:     l,
+		baseURL:         baseUrl,
+		postClient:      postClient,
+		sapClientNumber: sapClientNumber,
+		log:             l,
 	}
 }
 
-func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, addressID, bankCountryKey, bankNumber, bPName, customer, salesOrganization, distributionChannel, division, companyCode string, accepter []string) {
+func (c *SAPAPICaller) AsyncPostBPC(
+	general *requests.General,
+	role *requests.Role,
+	address *requests.Address,
+	bank *requests.Bank,
+	customer *requests.Customer,
+	salesArea *requests.SalesArea,
+	partnerFunction *requests.PartnerFunction,
+	company *requests.Company,
+	accepter []string) {
 	wg := &sync.WaitGroup{}
 	wg.Add(len(accepter))
 	for _, fn := range accepter {
 		switch fn {
 		case "General":
 			func() {
-				c.General(businessPartner)
+				c.General(general)
 				wg.Done()
 			}()
 		case "Role":
 			func() {
-				c.Role(businessPartner, businessPartnerRole)
-				wg.Done()
-			}()
-		case "Address":
-			func() {
-				c.Address(businessPartner, addressID)
+				c.Role(role)
 				wg.Done()
 			}()
 		case "Bank":
 			func() {
-				c.Bank(businessPartner, bankCountryKey, bankNumber)
+				c.Bank(bank)
 				wg.Done()
 			}()
-		case "BPName":
+		case "Address":
 			func() {
-				c.BPName(bPName)
+				c.Address(address)
 				wg.Done()
 			}()
 		case "Customer":
@@ -63,12 +72,17 @@ func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, 
 			}()
 		case "SalesArea":
 			func() {
-				c.SalesArea(customer, salesOrganization, distributionChannel, division)
+				c.SalesArea(salesArea)
+				wg.Done()
+			}()
+		case "PartnerFunction":
+			func() {
+				c.PartnerFunction(partnerFunction)
 				wg.Done()
 			}()
 		case "Company":
 			func() {
-				c.Company(customer, companyCode)
+				c.Company(company)
 				wg.Done()
 			}()
 		default:
@@ -79,79 +93,33 @@ func (c *SAPAPICaller) AsyncGetBPCustomer(businessPartner, businessPartnerRole, 
 	wg.Wait()
 }
 
-func (c *SAPAPICaller) General(businessPartner string) {
-	generalData, err := c.callBPSrvAPIRequirementGeneral("A_BusinessPartner", businessPartner)
+func (c *SAPAPICaller) General(general *requests.General) {
+	outputDataGeneral, err := c.callBPSrvAPIRequirementGeneral("A_BusinessPartner", general)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(generalData)
-
-	roleData, err := c.callToRole(generalData[0].ToRole)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(roleData)
-
-	addressData, err := c.callToAddress(generalData[0].ToAddress)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(addressData)
-	
-	bankData, err := c.callToBank(generalData[0].ToBank)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(bankData)
-
-	customerData, err := c.callToCustomer(generalData[0].ToCustomer)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(customerData)
-
-	salesAreaData, err := c.callToSalesArea(customerData.ToSalesArea)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(salesAreaData)
-	
-	partnerFunctionData, err := c.callToPartnerFunction(salesAreaData[0].ToPartnerFunction)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(partnerFunctionData)
-
-	companyData, err := c.callToCompany(customerData.ToCompany)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(companyData)
-
+	c.log.Info(outputDataGeneral)
 }
 
-func (c *SAPAPICaller) callBPSrvAPIRequirementGeneral(api, businessPartner string) ([]sap_api_output_formatter.General, error) {
+func (c *SAPAPICaller) callBPSrvAPIRequirementGeneral(api string, general *requests.General) (*sap_api_output_formatter.General, error) {
+	body, err := json.Marshal(general)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
-	req, _ := http.NewRequest("GET", url, nil)
-
-	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithGeneral(req, businessPartner)
-
-	resp, err := new(http.Client).Do(req)
+	params := c.addQuerySAPClient(map[string]string{})
+	resp, err := c.postClient.POST(url, params, string(body))
 	if err != nil {
 		return nil, xerrors.Errorf("API request error: %w", err)
 	}
 	defer resp.Body.Close()
-
 	byteArray, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(byteArray))
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, xerrors.Errorf("bad response:%s", string(byteArray))
+	}
+
 	data, err := sap_api_output_formatter.ConvertToGeneral(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
@@ -159,155 +127,32 @@ func (c *SAPAPICaller) callBPSrvAPIRequirementGeneral(api, businessPartner strin
 	return data, nil
 }
 
-func (c *SAPAPICaller) callToRole(url string) ([]sap_api_output_formatter.ToRole, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToRole(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) callToAddress(url string) ([]sap_api_output_formatter.ToAddress, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToAddress(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) callToBank(url string) ([]sap_api_output_formatter.ToBank, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToBank(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) callToCustomer(url string) (*sap_api_output_formatter.ToCustomer, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToCustomer(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) callToSalesArea(url string) ([]sap_api_output_formatter.ToSalesArea, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToSalesArea(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) callToPartnerFunction(url string) ([]sap_api_output_formatter.ToPartnerFunction, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToPartnerFunction(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) callToCompany(url string) ([]sap_api_output_formatter.ToCompany, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToCompany(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) Role(businessPartner, businessPartnerRole string) {
-	data, err := c.callBPCustomerSrvAPIRequirementRole("A_BusinessPartnerRole", businessPartner, businessPartnerRole)
+func (c *SAPAPICaller) Role(role *requests.Role) {
+	outputDataRole, err := c.callBPSrvAPIRequirementRole("A_BusinessPartnerRole", role)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(data)
+	c.log.Info(outputDataRole)
 }
 
-func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementRole(api, businessPartner, businessPartnerRole string) ([]sap_api_output_formatter.Role, error) {
+func (c *SAPAPICaller) callBPSrvAPIRequirementRole(api string, role *requests.Role) (*sap_api_output_formatter.Role, error) {
+	body, err := json.Marshal(role)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
-	req, _ := http.NewRequest("GET", url, nil)
-
-	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithRole(req, businessPartner, businessPartnerRole)
-
-	resp, err := new(http.Client).Do(req)
+	params := c.addQuerySAPClient(map[string]string{})
+	resp, err := c.postClient.POST(url, params, string(body))
 	if err != nil {
 		return nil, xerrors.Errorf("API request error: %w", err)
 	}
 	defer resp.Body.Close()
-
 	byteArray, _ := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, xerrors.Errorf("bad response:%s", string(byteArray))
+	}
+
 	data, err := sap_api_output_formatter.ConvertToRole(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
@@ -315,29 +160,32 @@ func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementRole(api, businessPartner,
 	return data, nil
 }
 
-func (c *SAPAPICaller) Address(businessPartner, addressID string) {
-	data, err := c.callBPCustomerSrvAPIRequirementAddress("A_BusinessPartnerAddress", businessPartner, addressID)
+func (c *SAPAPICaller) Address(address *requests.Address) {
+	outputDataAddress, err := c.callBPSrvAPIRequirementAddress("A_BusinessPartnerAddress", address)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(data)
+	c.log.Info(outputDataAddress)
 }
 
-func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementAddress(api, businessPartner, addressID string) ([]sap_api_output_formatter.Address, error) {
+func (c *SAPAPICaller) callBPSrvAPIRequirementAddress(api string, address *requests.Address) (*sap_api_output_formatter.Address, error) {
+	body, err := json.Marshal(address)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
-	req, _ := http.NewRequest("GET", url, nil)
-
-	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithAddress(req, businessPartner, addressID)
-
-	resp, err := new(http.Client).Do(req)
+	params := c.addQuerySAPClient(map[string]string{})
+	resp, err := c.postClient.POST(url, params, string(body))
 	if err != nil {
 		return nil, xerrors.Errorf("API request error: %w", err)
 	}
 	defer resp.Body.Close()
-
 	byteArray, _ := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, xerrors.Errorf("bad response:%s", string(byteArray))
+	}
+
 	data, err := sap_api_output_formatter.ConvertToAddress(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
@@ -345,29 +193,32 @@ func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementAddress(api, businessPartn
 	return data, nil
 }
 
-func (c *SAPAPICaller) Bank(businessPartner, bankCountryKey, bankNumber string) {
-	data, err := c.callBPCustomerSrvAPIRequirementBank("A_BusinessPartnerBank", businessPartner, bankCountryKey, bankNumber)
+func (c *SAPAPICaller) Bank(bank *requests.Bank) {
+	outputDataBank, err := c.callBPSrvAPIRequirementBank("A_BusinessPartnerBank", bank)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(data)
+	c.log.Info(outputDataBank)
 }
 
-func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementBank(api, businessPartner, bankCountryKey, bankNumber string) ([]sap_api_output_formatter.Bank, error) {
+func (c *SAPAPICaller) callBPSrvAPIRequirementBank(api string, bank *requests.Bank) (*sap_api_output_formatter.Bank, error) {
+	body, err := json.Marshal(bank)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
-	req, _ := http.NewRequest("GET", url, nil)
-
-	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithBank(req, businessPartner, bankCountryKey, bankNumber)
-
-	resp, err := new(http.Client).Do(req)
+	params := c.addQuerySAPClient(map[string]string{})
+	resp, err := c.postClient.POST(url, params, string(body))
 	if err != nil {
 		return nil, xerrors.Errorf("API request error: %w", err)
 	}
 	defer resp.Body.Close()
-
 	byteArray, _ := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, xerrors.Errorf("bad response:%s", string(byteArray))
+	}
+
 	data, err := sap_api_output_formatter.ConvertToBank(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
@@ -375,83 +226,32 @@ func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementBank(api, businessPartner,
 	return data, nil
 }
 
-func (c *SAPAPICaller) BPName(bPName string) {
-	bPNameData, err := c.callBPSrvAPIRequirementBPName("A_BusinessPartner", bPName)
+func (c *SAPAPICaller) Customer(customer *requests.Customer) {
+	outputDataCustomer, err := c.callBPSrvAPIRequirementCustomer("A_Customer", customer)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(bPNameData)
-
+	c.log.Info(outputDataCustomer)
 }
 
-func (c *SAPAPICaller) callBPSrvAPIRequirementBPName(api, bPName string) ([]sap_api_output_formatter.General, error) {
+func (c *SAPAPICaller) callBPSrvAPIRequirementCustomer(api string, customer *requests.Customer) (*sap_api_output_formatter.Customer, error) {
+	body, err := json.Marshal(customer)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
-	req, _ := http.NewRequest("GET", url, nil)
-
-	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithBPName(req, bPName)
-
-	resp, err := new(http.Client).Do(req)
+	params := c.addQuerySAPClient(map[string]string{})
+	resp, err := c.postClient.POST(url, params, string(body))
 	if err != nil {
 		return nil, xerrors.Errorf("API request error: %w", err)
 	}
 	defer resp.Body.Close()
-
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToGeneral(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, xerrors.Errorf("bad response:%s", string(byteArray))
 	}
-	return data, nil
-}
 
-func (c *SAPAPICaller) Customer(customer string) {
-	customerData, err := c.callBPCustomerSrvAPIRequirementCustomer("A_Customer", customer)
-	
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(customerData)
-
-	salesAreaData, err := c.callToSalesArea(customerData[0].ToSalesArea)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(salesAreaData)
-	
-	partnerFunctionData, err := c.callToPartnerFunction(salesAreaData[0].ToPartnerFunction)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(partnerFunctionData)
-
-	companyData, err := c.callToCompany(customerData[0].ToCompany)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(companyData)
-
-}
-
-func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementCustomer(api, customer string) ([]sap_api_output_formatter.Customer, error) {
-	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
-	req, _ := http.NewRequest("GET", url, nil)
-
-	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithCustomer(req, customer)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
 	data, err := sap_api_output_formatter.ConvertToCustomer(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
@@ -459,90 +259,32 @@ func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementCustomer(api, customer str
 	return data, nil
 }
 
-func (c *SAPAPICaller) callToSalesArea2(url string) ([]sap_api_output_formatter.ToSalesArea, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToSalesArea(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) callToPartnerFunction2(url string) ([]sap_api_output_formatter.ToPartnerFunction, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToPartnerFunction(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) callToCompany2(url string) ([]sap_api_output_formatter.ToCompany, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
-
-	resp, err := new(http.Client).Do(req)
-	if err != nil {
-		return nil, xerrors.Errorf("API request error: %w", err)
-	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToCompany(byteArray, c.log)
-	if err != nil {
-		return nil, xerrors.Errorf("convert error: %w", err)
-	}
-	return data, nil
-}
-
-func (c *SAPAPICaller) SalesArea(businessPartner, salesOrganization, distributionChannel, division string) {
-	salesAreaData, err := c.callBPCustomerSrvAPIRequirementSalesArea("A_CustomerSalesArea", businessPartner, salesOrganization, distributionChannel, division)
+func (c *SAPAPICaller) SalesArea(salesArea *requests.SalesArea) {
+	outputDataSalesArea, err := c.callBPSrvAPIRequirementSalesArea("A_CustomerSalesArea", salesArea)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(salesAreaData)
-
-	partnerFunctionData, err := c.callToPartnerFunction(salesAreaData[0].ToPartnerFunction)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(partnerFunctionData)
+	c.log.Info(outputDataSalesArea)
 }
 
-func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementSalesArea(api, customer, salesOrganization, distributionChannel, division string) ([]sap_api_output_formatter.SalesArea, error) {
+func (c *SAPAPICaller) callBPSrvAPIRequirementSalesArea(api string, salesArea *requests.SalesArea) (*sap_api_output_formatter.SalesArea, error) {
+	body, err := json.Marshal(salesArea)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
-	req, _ := http.NewRequest("GET", url, nil)
-
-	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithSalesArea(req, customer, salesOrganization, distributionChannel, division)
-
-	resp, err := new(http.Client).Do(req)
+	params := c.addQuerySAPClient(map[string]string{})
+	resp, err := c.postClient.POST(url, params, string(body))
 	if err != nil {
 		return nil, xerrors.Errorf("API request error: %w", err)
 	}
 	defer resp.Body.Close()
-
 	byteArray, _ := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, xerrors.Errorf("bad response:%s", string(byteArray))
+	}
+
 	data, err := sap_api_output_formatter.ConvertToSalesArea(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
@@ -550,47 +292,65 @@ func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementSalesArea(api, customer, s
 	return data, nil
 }
 
-func (c *SAPAPICaller) callToPartnerFunction3(url string) ([]sap_api_output_formatter.ToPartnerFunction, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	c.setHeaderAPIKeyAccept(req)
+func (c *SAPAPICaller) PartnerFunction(partnerFunction *requests.PartnerFunction) {
+	outputDataPartnerFunction, err := c.callBPSrvAPIRequirementPartnerFunction("A_CustSalesPartnerFunc", partnerFunction)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+	c.log.Info(outputDataPartnerFunction)
+}
 
-	resp, err := new(http.Client).Do(req)
+func (c *SAPAPICaller) callBPSrvAPIRequirementPartnerFunction(api string, partnerFunction *requests.PartnerFunction) (*sap_api_output_formatter.PartnerFunction, error) {
+	body, err := json.Marshal(partnerFunction)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
+	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
+	params := c.addQuerySAPClient(map[string]string{})
+	resp, err := c.postClient.POST(url, params, string(body))
 	if err != nil {
 		return nil, xerrors.Errorf("API request error: %w", err)
 	}
 	defer resp.Body.Close()
-
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToToPartnerFunction(byteArray, c.log)
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, xerrors.Errorf("bad response:%s", string(byteArray))
+	}
+
+	data, err := sap_api_output_formatter.ConvertToPartnerFunction(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
 	}
 	return data, nil
 }
 
-func (c *SAPAPICaller) Company(customer, companyCode string) {
-	data, err := c.callBPCustomerSrvAPIRequirementCompany("A_CustomerCompany", customer, companyCode)
+func (c *SAPAPICaller) Company(company *requests.Company) {
+	outputDataCompany, err := c.callBPSrvAPIRequirementCompany("A_CustomerCompany", company)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(data)
+	c.log.Info(outputDataCompany)
 }
 
-func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementCompany(api, customer, companyCode string) ([]sap_api_output_formatter.Company, error) {
+func (c *SAPAPICaller) callBPSrvAPIRequirementCompany(api string, company *requests.Company) (*sap_api_output_formatter.Company, error) {
+	body, err := json.Marshal(company)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
 	url := strings.Join([]string{c.baseURL, "API_BUSINESS_PARTNER", api}, "/")
-	req, _ := http.NewRequest("GET", url, nil)
-
-	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithCompany(req, customer, companyCode)
-
-	resp, err := new(http.Client).Do(req)
+	params := c.addQuerySAPClient(map[string]string{})
+	resp, err := c.postClient.POST(url, params, string(body))
 	if err != nil {
 		return nil, xerrors.Errorf("API request error: %w", err)
 	}
 	defer resp.Body.Close()
-
 	byteArray, _ := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, xerrors.Errorf("bad response:%s", string(byteArray))
+	}
+
 	data, err := sap_api_output_formatter.ConvertToCompany(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
@@ -598,55 +358,10 @@ func (c *SAPAPICaller) callBPCustomerSrvAPIRequirementCompany(api, customer, com
 	return data, nil
 }
 
-func (c *SAPAPICaller) setHeaderAPIKeyAccept(req *http.Request) {
-	req.Header.Set("APIKey", c.apiKey)
-	req.Header.Set("Accept", "application/json")
-}
-
-func (c *SAPAPICaller) getQueryWithGeneral(req *http.Request, businessPartner string) {
-	params := req.URL.Query()
-	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s'", businessPartner))
-	req.URL.RawQuery = params.Encode()
-}
-
-func (c *SAPAPICaller) getQueryWithRole(req *http.Request, businessPartner, businessPartnerRole string) {
-	params := req.URL.Query()
-	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s' and BusinessPartnerRole eq '%s'", businessPartner, businessPartnerRole))
-	req.URL.RawQuery = params.Encode()
-}
-
-func (c *SAPAPICaller) getQueryWithAddress(req *http.Request, businessPartner, addressID string) {
-	params := req.URL.Query()
-	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s' and AddressID eq '%s'", businessPartner, addressID))
-	req.URL.RawQuery = params.Encode()
-}
-
-func (c *SAPAPICaller) getQueryWithBank(req *http.Request, businessPartner, bankCountryKey, bankNumber string) {
-	params := req.URL.Query()
-	params.Add("$filter", fmt.Sprintf("BusinessPartner eq '%s' and BankCountryKey eq '%s' and BankNumber eq '%s", businessPartner, bankCountryKey, bankNumber))
-	req.URL.RawQuery = params.Encode()
-}
-
-func (c *SAPAPICaller) getQueryWithBPName(req *http.Request, bPName string) {
-	params := req.URL.Query()
-	params.Add("$filter", fmt.Sprintf("substringof('%s', BusinessPartnerName)", bPName))
-	req.URL.RawQuery = params.Encode()
-}
-
-func (c *SAPAPICaller) getQueryWithCustomer(req *http.Request, customer string) {
-	params := req.URL.Query()
-	params.Add("$filter", fmt.Sprintf("Customer eq '%s'", customer))
-	req.URL.RawQuery = params.Encode()
-}
-
-func (c *SAPAPICaller) getQueryWithSalesArea(req *http.Request, customer, salesOrganization, distributionChannel, division string) {
-	params := req.URL.Query()
-	params.Add("$filter", fmt.Sprintf("Customer eq '%s' and SalesOrganization eq '%s' and DistributionChannel eq '%s' and Division eq '%s'", customer, salesOrganization, distributionChannel, division))
-	req.URL.RawQuery = params.Encode()
-}
-
-func (c *SAPAPICaller) getQueryWithCompany(req *http.Request, customer, companyCode string) {
-	params := req.URL.Query()
-	params.Add("$filter", fmt.Sprintf("Customer eq '%s' and CompanyCode eq '%s'", customer, companyCode))
-	req.URL.RawQuery = params.Encode()
+func (c *SAPAPICaller) addQuerySAPClient(params map[string]string) map[string]string {
+	if len(params) == 0 {
+		params = make(map[string]string, 1)
+	}
+	params["sap-client"] = c.sapClientNumber
+	return params
 }
