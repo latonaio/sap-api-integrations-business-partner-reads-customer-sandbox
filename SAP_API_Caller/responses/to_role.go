@@ -1,6 +1,6 @@
 package responses
 
-type Role struct {
+type ToRole struct {
 	D struct {
 		Results []struct {
 			Metadata struct {

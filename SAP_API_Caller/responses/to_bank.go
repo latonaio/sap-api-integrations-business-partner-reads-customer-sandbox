@@ -1,6 +1,6 @@
 package responses
 
-type Bank struct {
+type ToBank struct {
 	D struct {
 		Results []struct {
 			Metadata struct {

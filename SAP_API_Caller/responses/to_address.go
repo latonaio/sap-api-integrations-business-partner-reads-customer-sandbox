@@ -1,6 +1,6 @@
 package responses
 
-type Address struct {
+type ToAddress struct {
 	D struct {
 		Results []struct {
 			Metadata struct {

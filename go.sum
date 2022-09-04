@@ -1,8 +1,6 @@
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/latonaio/golang-logging-library-for-sap v1.0.4 h1:06EyuMESuXLklP2XT98FJqvM47HOlHc2d5Fxrnuw3As=
 github.com/latonaio/golang-logging-library-for-sap v1.0.4/go.mod h1:Q6N2Fey+UaTk1tXogQ3/e3rdhPhsf21wqsFDdOkihcI=
-github.com/latonaio/sap-api-post-header-setup v1.0.0 h1:1QTbuAsPXHFLetn1P2lzdJsaLhpJEPW3TNrmH3VJZK4=
-github.com/latonaio/sap-api-post-header-setup v1.0.0/go.mod h1:VJNQf53aNxHfcXjHdnQtglzrwClUSRTycjAi2OXcgno=
 github.com/latonaio/sap-api-time-value-converter v1.0.4 h1:Tb/SgE6ywzq9G6tYGEviaCcurt4/d7VDJ8hk40Zu0YA=
 github.com/latonaio/sap-api-time-value-converter v1.0.4/go.mod h1:xyJX2ryAslZ55cri+Ys0bR2N0WdhrlDFovD18QGE8u8=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

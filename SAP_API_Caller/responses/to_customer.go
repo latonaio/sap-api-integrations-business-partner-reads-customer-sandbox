@@ -1,13 +1,12 @@
 package responses
 
-type Customer struct {
+type ToCustomer struct {
 	D struct {
-		Results []struct {
-			Metadata struct {
-				ID   string `json:"id"`
-				URI  string `json:"uri"`
-				Type string `json:"type"`
-			} `json:"__metadata"`
+		Metadata struct {
+			ID   string `json:"id"`
+			URI  string `json:"uri"`
+			Type string `json:"type"`
+		} `json:"__metadata"`
 		Customer                     string `json:"Customer"`
 		AuthorizationGroup           string `json:"AuthorizationGroup"`
 		BillingIsBlockedForCustomer  string `json:"BillingIsBlockedForCustomer"`
@@ -36,6 +35,5 @@ type Customer struct {
 				URI string `json:"uri"`
 			} `json:"__deferred"`
 		} `json:"to_CustomerCompany"`
-		} `json:"results"`
 	} `json:"d"`
 }

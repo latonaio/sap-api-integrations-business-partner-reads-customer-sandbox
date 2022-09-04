@@ -1,6 +1,6 @@
 package responses
 
-type Company struct {
+type ToCompany struct {
 	D struct {
 		Results []struct {
 			Metadata struct {

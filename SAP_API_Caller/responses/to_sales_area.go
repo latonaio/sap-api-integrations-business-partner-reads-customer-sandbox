@@ -1,6 +1,6 @@
 package responses
 
-type SalesArea struct {
+type ToSalesArea struct {
 	D struct {
 		Results []struct {
 			Metadata struct {
