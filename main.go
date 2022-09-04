@@ -33,7 +33,7 @@ func main() {
 		inoutSDC.BusinessPartner.CustomerData.SalesArea.SalesOrganization,
 		inoutSDC.BusinessPartner.CustomerData.SalesArea.DistributionChannel,
 		inoutSDC.BusinessPartner.CustomerData.SalesArea.Division,
-		inoutSDC.BusinessPartner.Company.CompanyCode,
+		inoutSDC.BusinessPartner.CustomerData.Company.CompanyCode,
 		accepter,
 	)
 }

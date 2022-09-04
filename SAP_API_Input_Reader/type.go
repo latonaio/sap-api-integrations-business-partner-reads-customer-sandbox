@@ -58,7 +58,7 @@ type SDC struct {
 	RedisKey        string `json:"redis_key"`
 	Filepath        string `json:"filepath"`
 	BusinessPartner struct {
-		BusinessPartner               string `json:"BusinessPartner"`
+		BusinessPartner               string  `json:"BusinessPartner"`
 		Customer                      string `json:"Customer"`
 		Supplier                      string `json:"Supplier"`
 		AcademicTitle                 string `json:"AcademicTitle"`
@@ -106,12 +106,12 @@ type SDC struct {
 		BusinessPartnerIDByExtSystem  string `json:"BusinessPartnerIDByExtSystem"`
 		TradingPartner                string `json:"TradingPartner"`
 		Role                          struct {
-			BusinessPartnerRole string `json:"BusinessPartnerRole"`
+			BusinessPartnerRole string  `json:"BusinessPartnerRole"`
 			ValidFrom           string `json:"ValidFrom"`
 			ValidTo             string `json:"ValidTo"`
 		} `json:"Role"`
 		Address struct {
-			AddressID         string `json:"AddressID"`
+			AddressID         string  `json:"AddressID"`
 			ValidityStartDate string `json:"ValidityStartDate"`
 			ValidityEndDate   string `json:"ValidityEndDate"`
 			Country           string `json:"Country"`
@@ -122,8 +122,8 @@ type SDC struct {
 			Language          string `json:"Language"`
 		} `json:"Address"`
 		Bank struct {
-			BankIdentification       string `json:"BankIdentification"`
-			BankCountryKey           string `json:"BankCountryKey"`
+			BankIdentification       string  `json:"BankIdentification"`
+			BankCountryKey           string  `json:"BankCountryKey"`
 			BankName                 string `json:"BankName"`
 			BankNumber               string `json:"BankNumber"`
 			SWIFTCode                string `json:"SWIFTCode"`
@@ -132,7 +132,7 @@ type SDC struct {
 			BankAccountName          string `json:"BankAccountName"`
 			ValidityStartDate        string `json:"ValidityStartDate"`
 			ValidityEndDate          string `json:"ValidityEndDate"`
-			Iban                     string `json:"IBAN"`
+			IBAN                     string `json:"IBAN"`
 			IBANValidityStartDate    string `json:"IBANValidityStartDate"`
 			BankAccount              string `json:"BankAccount"`
 			BankAccountReferenceText string `json:"BankAccountReferenceText"`
@@ -141,7 +141,7 @@ type SDC struct {
 			AuthorizationGroup       string `json:"AuthorizationGroup"`
 		} `json:"Bank"`
 		CustomerData struct {
-			Customer                    string `json:"Customer"`
+			Customer                    string  `json:"Customer"`
 			AuthorizationGroup          string `json:"AuthorizationGroup"`
 			BillingIsBlockedForCustomer string `json:"BillingIsBlockedForCustomer"`
 			CreationDate                string `json:"CreationDate"`
@@ -160,9 +160,10 @@ type SDC struct {
 			CityCode                    string `json:"CityCode"`
 			County                      string `json:"County"`
 			SalesArea                   struct {
-				SalesOrganization              string `json:"SalesOrganization"`
-				DistributionChannel            string `json:"DistributionChannel"`
-				Division                       string `json:"Division"`
+				Customer                       string  `json:"Customer"`
+				SalesOrganization              string  `json:"SalesOrganization"`
+				DistributionChannel            string  `json:"DistributionChannel"`
+				Division                       string  `json:"Division"`
 				CompleteDeliveryIsDefined      bool   `json:"CompleteDeliveryIsDefined"`
 				Currency                       string `json:"Currency"`
 				CustomerAccountAssignmentGroup string `json:"CustomerAccountAssignmentGroup"`
@@ -187,11 +188,11 @@ type SDC struct {
 				BillingIsBlockedForCustomer    string `json:"BillingIsBlockedForCustomer"`
 				DeletionIndicator              bool   `json:"DeletionIndicator"`
 				PartnerFunction                struct {
-					Customer                   string `json:"Customer"`
-					SalesOrganization          string `json:"SalesOrganization"`
-					DistributionChannel        string `json:"DistributionChannel"`
-					Division                   string `json:"Division"`
-					PartnerCounter             string `json:"PartnerCounter"`
+					Customer                   string  `json:"Customer"`
+					SalesOrganization          string  `json:"SalesOrganization"`
+					DistributionChannel        string  `json:"DistributionChannel"`
+					Division                   string  `json:"Division"`
+					PartnerCounter             string  `json:"PartnerCounter"`
 					PartnerFunction            string `json:"PartnerFunction"`
 					BPCustomerNumber           string `json:"BPCustomerNumber"`
 					CustomerPartnerDescription string `json:"CustomerPartnerDescription"`
@@ -200,17 +201,18 @@ type SDC struct {
 					AuthorizationGroup         string `json:"AuthorizationGroup"`
 				} `json:"PartnerFunction"`
 			} `json:"Sales_Area"`
+			Company struct {
+				Customer                       string  `json:"Customer"`
+				CompanyCode                    string  `json:"CompanyCode"`
+				APARToleranceGroup             string `json:"APARToleranceGroup"`
+				CustomerSupplierClearingIsUsed bool   `json:"CustomerSupplierClearingIsUsed"`
+				HouseBank                      string `json:"HouseBank"`
+				PaymentMethodsList             string `json:"PaymentMethodsList"`
+				PaymentTerms                   string `json:"PaymentTerms"`
+				ReconciliationAccount          string `json:"ReconciliationAccount"`
+				DeletionIndicator              bool   `json:"DeletionIndicator"`
+			} `json:"Company"`
 		} `json:"CustomerData"`
-		Company struct {
-			CompanyCode                    string `json:"CompanyCode"`
-			APARToleranceGroup             string `json:"APARToleranceGroup"`
-			CustomerSupplierClearingIsUsed string `json:"CustomerSupplierClearingIsUsed"`
-			HouseBank                      string `json:"HouseBank"`
-			PaymentMethodsList             string `json:"PaymentMethodsList"`
-			PaymentTerms                   string `json:"PaymentTerms"`
-			ReconciliationAccount          string `json:"ReconciliationAccount"`
-			DeletionIndicator              bool   `json:"DeletionIndicator"`
-		} `json:"Company"`
 	} `json:"business_partner"`
 	APISchema           string   `json:"api_schema"`
 	Accepter            []string `json:"accepter"`
